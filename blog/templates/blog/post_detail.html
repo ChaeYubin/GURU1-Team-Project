@@ -5,6 +5,7 @@
     <title>{{ blog_post.title }}</title>
 </head>
 <body>
+    <button type="button" class="btn btn-sm btn-outline-secondary float-right" onclick="location.href='{{ object.get_update_url }}'">EDIT</button>
     <h1>{{ object.title }}</h1>
     <div>
         {{ object.content }}
