@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title> OO그룹 </title>
+</head>
+<body>
+<h1> 그룹명 </h1>
+{% for p in object_list %}
+<h3>{{ p.title }}</h3>
+<img src="{{ p.head_image.url }}"
+<h3>{{ p.created }} by {{ p.author }}</h3>
+<h3>{{ p.content }}</h3>
+{% endfor %}
+</body>
+</html>
