@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'blog',
     'markdownx',
+    'crispy_forms',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -125,4 +126,6 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '_media')
 MEDIA_URL = '/media/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4' # 부트스트랩4 사용시 (아니라면 uni_form)
 
