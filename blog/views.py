@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Post
+from .models import Post, Category
 from .forms import CommentForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -12,13 +12,21 @@ class PostList(ListView):
     def get_queryset(self):
         return Post.objects.order_by('-created')
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(PostList, self).get_context_data(**kwargs)
+        context['category_list'] = Category.objects.all()
+        context['posts_without_category'] = Post.objects.filter(category=None).count()
 
-class Postdetail(DetailView):
+        return context
+
+
+class PostDetail(DetailView):
     model = Post
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(Postdetail, self).get_context_data(**kwargs)
-        context['comment_form'] = CommentForm()
+        context = super(PostDetail, self).get_context_data(**kwargs)
+        context['category_list'] = Category.objects.all()
+        context['posts_without_category'] = Post.objects.filter(category=None).count()
 
         return context
 
@@ -43,6 +51,35 @@ class PostUpdate(UpdateView):
     fields = [
         'title', 'content', 'head_image',
     ]
+
+
+class PostListByCategory(ListView):
+
+    def get_queryset(self):
+        slug = self.kwargs['slug']
+
+        if slug == '_none':
+            category = None
+        else:
+            category = Category.objects.get(slug=slug)
+
+        return Post.objects.filter(category=category).order_by('-created')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(type(self), self).get_context_data(**kwargs)
+        context['category_list'] = Category.objects.all()
+        context['posts_without_category'] = Post.objects.filter(category=None).count()
+
+        slug = self.kwargs['slug']
+
+        if slug == '_none':
+            context['category'] = '미분류'
+        else:
+            category = Category.objects.get(slug=slug)
+            context['category'] = category
+
+        # context['title']='blog - {}'.format(category.name)
+        return context
 
 
 def new_comment(request, pk):
