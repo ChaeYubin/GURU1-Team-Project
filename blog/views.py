@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Post, Category
+from .models import Post, Category, Comment
 from .forms import CommentForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -27,6 +27,7 @@ class PostDetail(DetailView):
         context = super(PostDetail, self).get_context_data(**kwargs)
         context['category_list'] = Category.objects.all()
         context['posts_without_category'] = Post.objects.filter(category=None).count()
+        context['comment_form'] = CommentForm()
 
         return context
 
@@ -95,3 +96,25 @@ def new_comment(request, pk):
             return redirect(comment.get_absolute_url())
     else:
         return redirect('/blog/')
+
+
+def delete_comment(request, pk):
+    comment = Comment.objects.get(pk=pk)
+    post = comment.post
+
+    if request.user == comment.author:
+        comment.delete()
+        return redirect(post.get_absolute_url() + '#comment-list')
+    else:
+        return redirect('/blog/')
+
+
+class CommentUpdate(UpdateView):
+    model = Comment
+    form_class = CommentForm
+
+    def get_object(self, queryset=None):
+        comment = super(CommentUpdate, self).get_object()
+        if comment.author != self.request.user:
+            raise PermissionError('Comment 수정 권한이 없습니다.')
+        return comment

@@ -29,16 +29,10 @@
 <div id="comment-list">
     {% for comment in object.comment_set.all %}
     <div class="media mb-4" id="comment-id-{{ comment.pk }}">
-        {% if comment.author.socialaccount_set.all.0.get_avatar_url %}
-        <img width="50px" class="d-flex mr-3 rounded-circle" src="{{ comment.author.socialaccount_set.all.0.get_avatar_url }}" alt="">
-        {% else %}
-        <img width="50px" class="d-flex mr-3 rounded-circle" src="https://api.adorable.io/avatars/285/{{ comment.author }}.png" alt="">
-        {% endif %}
         <div class="media-body">
             {% if comment.author == request.user %}
-            <!-- 혹시 부트스트랩 나중에 사용할 수도 있을까봐 class 안없앴어요 -->
-            <button class="btn btn-sm btn-info float-right" data-toggle="modal" data-target="#deleteCommentModal-{{ comment.pk }}">delete</button>
-            <button class="btn btn-sm btn-secondary float-right" onclick="location.href='/blog/edit_comment/{{ comment.pk }}/'">edit</button>
+            <button onclick="location.href='/blog/delete_comment/{{ comment.pk }}/'">delete</button>
+            <button onclick="location.href='/blog/edit_comment/{{ comment.pk }}/'">edit</button>
             {% endif %}
             <h5 class="mt-0">{{ comment.author }} <small class="text-muted">{{ comment.created_at }}</small></h5>
             {{ comment.get_markdown_content | safe }}
