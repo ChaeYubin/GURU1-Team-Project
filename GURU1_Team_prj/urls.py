@@ -1,4 +1,4 @@
-"""GURU1_Team_Project URL Configuration
+"""GURU1_Team_prj URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -15,13 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.conf.urls.static import static
-from django.conf import settings
 
 urlpatterns = [
-    path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
-    path('markdownx/', include('markdownx.urls')),
+    path('auth/', include('users.urls'))
 ]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
