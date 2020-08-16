@@ -16,7 +16,7 @@ Including another URLconf
 from django.urls import path
 from .import views
 
-app_name = "users"
+app_name = "blog"
 
 urlpatterns = [
     path('category/<str:slug>/', views.PostListByCategory.as_view()),
