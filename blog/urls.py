@@ -13,8 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path, include
+from django.urls import path
 from .import views
+
+app_name = "users"
 
 urlpatterns = [
     path('category/<str:slug>/', views.PostListByCategory.as_view()),
@@ -25,4 +27,7 @@ urlpatterns = [
     path('<int:pk>/new_comment/', views.new_comment),
     path('create/', views.PostCreate.as_view()),
     path('', views.PostList.as_view()),
+    path('login', views.login_view, name='login'),
+    path('logout', views.logout_view, name='logout'),
+    path('signup', views.signup_view, name='signup'),
 ]
