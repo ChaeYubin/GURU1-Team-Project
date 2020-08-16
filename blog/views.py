@@ -36,10 +36,10 @@ def signup_view(request):
             user.nickname = nickname
             user.save()
 
-            return redirect("blog:login")
+            return redirect("user:login")
         else:
             messagebox.showinfo("warning", "패스워드가 서로 다릅니다.")
-    return redirect("blog:signup")
+    return render(request, "blog/signup.html")
 
 
 class PostList(ListView):
