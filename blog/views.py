@@ -32,11 +32,11 @@ def signup_view(request):
             password = request.POST["password1"]
             email = request.POST["email"]
 
-            user = User.objects.create(username, email, password)
+            user = User.objects.create_user(username, email, password)
             user.nickname = nickname
             user.save()
 
-            return redirect("user:login")
+            return redirect("blog:login")
         else:
             messagebox.showinfo("warning", "패스워드가 서로 다릅니다.")
     return render(request, "blog/signup.html")
