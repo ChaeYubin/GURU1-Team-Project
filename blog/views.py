@@ -72,13 +72,13 @@ class PostDetail(DetailView):
 class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
     fields = [
-        'title', 'content', 'head_image'
+        'title', 'content', 'head_image', 'category',
     ]
 
     def form_valid(self, form):
-        current_user= self.request.user
-        if current_user.in_authenticated:
-            form.instance.author = self.request.user
+        current_user = self.request.user
+        if current_user.is_authenticated:
+            form.instance.author = current_user
             return super(type(self), self).form_valid(form)
         else:
             return redirect('/blog/')
@@ -143,7 +143,7 @@ def delete_comment(request, pk):
         comment.delete()
         return redirect(post.get_absolute_url() + '#comment-list')
     else:
-        return redirect('/blog/')
+        raise PermissionError('Comment 삭제 권한이 없습니다.')
 
 
 class CommentUpdate(UpdateView):
