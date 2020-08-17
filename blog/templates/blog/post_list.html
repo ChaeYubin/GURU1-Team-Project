@@ -10,7 +10,7 @@
     <button class="btn btn-sm btn-primary float-right" onclick="location.href='/blog/create/'">New Post</button>
 {% for p in object_list %}
 <h3>{{ p.title }}</h3>
-{% if head_image %}
+{% if p.head_image %}
     <img src="{{ p.head_image.url }}">
 {% endif %}
 <h3>{{ p.created }} by {{ p.author }}</h3>

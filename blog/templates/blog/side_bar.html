@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>challenge_certification</title>
+    <style>
+        .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:15%; right:10%; border-radius:10px}
+        progress::-webkit-progress-bar {background:#fff}
+        progress::-webkit-progress-value {background:yellow}
+    </style>
+</head>
+<body>
+<!-- challenge certification widget -->
+  <div class="side_bar">
+    <h3>목표 달성률</h3>
+    {% for user %}  <!-- user 수만큼 반복 -->
+      {% if request.user %}  <!-- 현재 로그인한 유저라면 (색상 이사람만 다르게 하면 좋을듯) -->
+        <div class="card-body">
+        <h4 class="card-title">나</h4>
+        <progress value="20" max="100"></progress>
+        </div>
+      {% else %}  <!-- 현재 로그인한 유저가 아니라면 -->
+        <div class="card-body">
+        <h4 class="card-title">other user</h4>
+        <progress value="50" max="100"></progress>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+<!-- //challenge certification widget -->
+</body>
+</html>
