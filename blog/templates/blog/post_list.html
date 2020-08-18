@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1> 그룹명 </h1>
-    <button class="btn btn-sm btn-primary float-right" onclick="location.href='/blog/create/'">New Post</button>
+<button class="btn btn-sm btn-primary float-right" onclick="location.href='/blog/create/'">New Post</button>
 {% for p in object_list %}
 <h3>{{ p.title }}</h3>
 <img src="{{ p.head_image.url }}">
@@ -15,6 +15,16 @@
 <h3>{{ p.content }}</h3>
 <a href="{{ p.get_absolute_url }}" class="btn btn-primary">  Read More &rarr;</a>
 {% endfor %}
+{% if object.category %}
+<span class="badge badge-primary float-right">{{ object.category }}</span>
+{% else %}
+<span class="badge badge-primary float-right">미분류</span>
+{% endif %}
+
+{% for tag in object.tags.all %}
+<a href="{{ tag.get_absolute_url }}">#{{tag}}</a>
+{% endfor %}
+
 
 </body>
 </html>
