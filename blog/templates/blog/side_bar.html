@@ -15,14 +15,14 @@
   <div class="side_bar">
     <h3>목표 달성률</h3>
     {% for user in users %}  <!-- user 수만큼 반복 -->
-      {% if current_user == request.user %}  <!-- 현재 로그인한 유저라면 (색상 이사람만 다르게 하면 좋을듯) -->
+      {% if request.user.is_authenticated %}  <!-- 현재 로그인한 유저라면 (색상 이사람만 다르게 하면 좋을듯) -->
         <div class="card-body">
-        <h4 class="card-title">{{ user.username }}</h4>
-        <progress value="{{ p.post.count()*10 }}" max="100"></progress>
+        <h4 class="card-title">{{ user.get_username }}</h4>
+        <progress value="10" max="100"></progress>
         </div>
       {% else %}  <!-- 현재 로그인한 유저가 아니라면 -->
         <div class="card-body">
-        <h4 class="card-title">{{ user.username }}</h4>
+        <h4 class="card-title">{{ user.get_username }}</h4>
         <progress value="50" max="100"></progress>
         </div>
       {% endif %}

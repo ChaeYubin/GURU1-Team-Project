@@ -157,7 +157,6 @@ class CommentUpdate(UpdateView):
 
 
 def user_info(request):
-    current_user = request.user
     users = User.objects.all()
     context = {'users': users}
     return render(request, 'blog/side_bar.html', context)
