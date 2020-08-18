@@ -127,5 +127,6 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '_media')
 MEDIA_URL = '/media/'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4' # 부트스트랩4 사용시 (아니라면 uni_form)
+CRISPY_TEMPLATE_PACK = 'bootstrap4'  # 부트스트랩4 사용시 (아니라면 uni_form)
 
+AUTH_USER_MODEL = 'blog.User'
