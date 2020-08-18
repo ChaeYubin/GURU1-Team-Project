@@ -19,6 +19,7 @@ from .import views
 app_name = "blog"
 
 urlpatterns = [
+    path('tag/<str:slug>/', views.PostListByTag.as_view()),
     path('category/<str:slug>/', views.PostListByCategory.as_view()),
     path('<int:pk>/update/', views.PostUpdate.as_view()),
     path('<int:pk>/', views.PostDetail.as_view()),
@@ -26,6 +27,7 @@ urlpatterns = [
     path('edit_comment/<int:pk>/', views.CommentUpdate.as_view()),
     path('<int:pk>/new_comment/', views.new_comment),
     path('create/', views.PostCreate.as_view()),
+    path('main/', views.MainPostList.as_view()),
     path('', views.PostList.as_view()),
     path('login', views.login_view, name='login'),
     path('logout', views.logout_view, name='logout'),

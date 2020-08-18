@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from .models import User, Post, Category, Comment
+from .models import User, Post, Category, Comment, Tag
 from .forms import CommentForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -42,6 +42,15 @@ def signup_view(request):
     return render(request, "blog/signup.html")
 
 
+class MainPostList(ListView):
+    model = Post
+
+    # 역순만들기
+    def get_queryset(self):
+        return Post.objects.order_by('-created')
+
+
+
 class PostList(ListView):
     model = Post
 
@@ -53,6 +62,23 @@ class PostList(ListView):
         context = super(PostList, self).get_context_data(**kwargs)
         context['category_list'] = Category.objects.all()
         context['posts_without_category'] = Post.objects.filter(category=None).count()
+
+        return context
+
+
+class PostListByTag(ListView):
+    def get_queryset(self):
+        tag_slug = self.kwargs['slug']
+        tag = Tag.objects.get(slug=tag_slug)
+
+        return tag.post_set.order_by('-created')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(type(self), self).get_context_data(**kwargs)
+        context['category_list'] = Category.objects.all()
+        context['posts_without_category'] = Post.objects.filter(category=None).count()
+        tag_slug = self.kwargs['slug']
+        context['tag'] = Tag.objects.get(slug=tag_slug)
 
         return context
 
