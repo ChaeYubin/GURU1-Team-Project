@@ -92,7 +92,6 @@ class PostUpdate(UpdateView):
 
 
 class PostListByCategory(ListView):
-
     def get_queryset(self):
         slug = self.kwargs['slug']
 
@@ -155,3 +154,10 @@ class CommentUpdate(UpdateView):
         if comment.author != self.request.user:
             raise PermissionError('Comment 수정 권한이 없습니다.')
         return comment
+
+
+def user_info(request):
+    current_user = request.user
+    users = User.objects.all()
+    context = {'users': users}
+    return render(request, 'blog/side_bar.html', context)
