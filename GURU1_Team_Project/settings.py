@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'blog',
     'markdownx',
     'crispy_forms',
+    'bootstrap4',
 
     'django.contrib.admin',
     'django.contrib.auth',
