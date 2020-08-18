@@ -1,4 +1,3 @@
-<!-- extends 'base.html' %}-->
 {% load bootstrap4 %}
 {% block container %}
 
@@ -7,8 +6,11 @@
 <form method="POST">
     {% csrf_token %}
 
+    <p>ID(Username): {{ user.username }}</p>
     {% bootstrap_form user_change_form %}
     <input type="submit" value="Submit"/>
 </form>
 
+<a href="{% url 'blog:delete' %}" class="btn btn-danger">회원탈퇴</a>
+<a href="{% url 'blog:password' %}">비밀밀호 변경</a>
 {% endblock %}

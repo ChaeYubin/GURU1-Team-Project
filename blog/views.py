@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .models import User, Post, Category, Comment
@@ -5,8 +6,9 @@ from .forms import CommentForm, CustomUserChangeForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from tkinter import messagebox
-from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required
+
 
 def login_view(request):
     if request.method == "POST":
@@ -23,9 +25,9 @@ def logout_view(request):
     logout(request)
     return redirect("blog:login")
 
-
 def signup_view(request):
     if request.method == "POST":
+        #아이디 중복될경우 오류메세지 띄어야함.
         if request.POST["password1"] == request.POST["password2"]:
             print(request.POST)
             nickname = request.POST["nickname"]
@@ -54,6 +56,29 @@ def update(request):
     else:
         user_change_form = CustomUserChangeForm(instance=request.user)
     return render(request, 'blog/update.html', {'user_change_form': user_change_form})
+
+@login_required
+def delete(request):
+    if request.method == 'POST':
+        request.user.delete()
+        return redirect('blog:login')
+    return render(request, 'blog/delete.html')
+
+
+@login_required
+def password(request):
+    if request.method == 'POST':
+        password_change_form = PasswordChangeForm(request.user, request.POST)
+
+        # 키워드인자명을 함께 써줘도 가능
+        # password_change_form = PasswordChangeForm(user=request.user, data=request.POST)
+        if password_change_form.is_valid():
+            password_change_form.save()
+            return redirect('blog:login', request.user.username)
+
+    else:
+        password_change_form = PasswordChangeForm(request.user)
+    return render(request, 'blog/password.html', {'password_change_form': password_change_form})
 
 
 class PostList(ListView):

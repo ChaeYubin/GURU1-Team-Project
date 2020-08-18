@@ -11,4 +11,4 @@ class CommentForm(forms.ModelForm):
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = get_user_model()
-        fields = ['username', 'email', 'nickname']
+        fields = ['email', 'nickname', ]  #username이 ID여서 일단 뺌
