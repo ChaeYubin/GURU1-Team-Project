@@ -6,11 +6,21 @@
     <title>{{ blog_post.title }}</title>
 </head>
 <body>
-    <button type="button" class="btn btn-sm btn-outline-secondary float-right" onclick="location.href='{{ object.get_update_url }}'">EDIT</button>
-    <h1>{{ object.title }}</h1>
-    <div>
-        {{ object.content }}
-    </div>
+<button type="button" class="btn btn-sm btn-outline-secondary float-right" onclick="location.href='{{ object.get_update_url }}'">EDIT</button>
+<h1>{{ object.title }}</h1>
+<div>
+    {{ object.content }}
+    {% if object.category %}
+    <span class="badge badge-primary float-right">{{ object.category }}</span>
+    {% else %}
+    <span class="badge badge-primary float-right">미분류</span>
+    {% endif %}
+
+    {{ object.content }}
+    {% for tag in object.tags.all %}
+    <a href="{{ tag.get_absolute_url }}">#{{tag}}</a>
+    {% endfor %}
+</div>
 
 <!-- Comments Form -->
 <div class="card my-4">
@@ -20,7 +30,7 @@
             <div class="form-group">
                 {{ comment_form | crispy }}
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" onclick="location.href='{{ object.get_update_url }}'">Submit</button>
         </form>
     </div>
 </div>
