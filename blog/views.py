@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .models import User, Post, Category, Comment
-from .forms import CommentForm
+from .forms import CommentForm, CustomUserChangeForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from tkinter import messagebox
-
+from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.decorators import login_required
 
 def login_view(request):
     if request.method == "POST":
@@ -40,6 +41,19 @@ def signup_view(request):
         else:
             messagebox.showinfo("warning", "패스워드가 서로 다릅니다.")
     return render(request, "blog/signup.html")
+
+
+@login_required
+def update(request):
+    if request.method == 'POST':
+        user_change_form = CustomUserChangeForm(request.POST, instance=request.user)
+        if user_change_form.is_valid():
+            user_change_form.save()
+            return redirect('blog:login')
+
+    else:
+        user_change_form = CustomUserChangeForm(instance=request.user)
+    return render(request, 'blog/update.html', {'user_change_form': user_change_form})
 
 
 class PostList(ListView):

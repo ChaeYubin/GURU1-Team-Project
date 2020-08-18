@@ -11,7 +11,7 @@
 <h1>Login</h1>
 
 {% if user.is_authenticated %}
-        {{ user.username }}님 환영합니다.
+        {{ user.nickname }} 님 환영합니다.
 <a href="{% url 'blog:logout' %}">로그아웃</a>
 
 {% else %}
