@@ -25,9 +25,10 @@ def logout_view(request):
     logout(request)
     return redirect("blog:login")
 
+
 def signup_view(request):
     if request.method == "POST":
-        #아이디 중복될경우 오류메세지 띄어야함.
+        # 아이디 중복될경우 오류메세지 띄어야함.
         if request.POST["password1"] == request.POST["password2"]:
             print(request.POST)
             nickname = request.POST["nickname"]
@@ -57,7 +58,7 @@ def update(request):
         user_change_form = CustomUserChangeForm(instance=request.user)
     return render(request, 'blog/update.html', {'user_change_form': user_change_form})
 
-  
+
 @login_required
 def delete(request):
     if request.method == 'POST':
@@ -81,13 +82,18 @@ def password(request):
         password_change_form = PasswordChangeForm(request.user)
     return render(request, 'blog/password.html', {'password_change_form': password_change_form})
 
-  
-class MainPostList(ListView):
+
+def MainPage(request):
     model = Post
 
-    # 역순만들기
-    def get_queryset(self):
-        return Post.objects.order_by('-created')
+    tags = Tag.objects.all()
+    return render(
+        request,
+        'blog/main_page.html',
+        {
+            'tags':tags,
+        }
+    )
 
 
 class PostList(ListView):
