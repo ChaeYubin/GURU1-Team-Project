@@ -1,10 +1,11 @@
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from .models import User, Post, Category, Comment, Tag, Question, Answer
-from .forms import CommentForm, CustomUserChangeForm, AnswerForm
+from .forms import CommentForm, CustomUserChangeForm, AnswerForm, PostForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import timezone
 from tkinter import messagebox
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required
@@ -94,6 +95,60 @@ def MainPage(request):
             'tags':tags,
         }
     )
+
+
+def index (request):
+    posts = Post.objects.all()
+    return render(request,
+                  'blog/index.html',
+                  {'posts : posts'}
+                  )
+
+
+def post_list(request):
+    post = Post.objects.all()
+    return render(request,
+                  'app/post_list.html',
+                  {'posts : posts'}
+                  )
+
+def post_new(request):
+    if request.method =="POST":
+        form =PostForm(request.POST)
+        if form.is_valid():
+            post= form.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+            return redirect('post_detail', pk=post.pk)
+    else:
+        return render(request, 'blog/post_edit.html')
+
+
+def post_edit(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method =="POST":
+        form =PostForm(request.POST, instance=post)
+        if form.is_valid():
+            post= form.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+            return redirect('post_detail', pk=post.pk)
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'blog/post_edit.html')
+
+
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, 'blog/post_detail.html', {'post':post})
+
+
+def post_delete(request, pk):
+    post=Post.objects.get(id=pk)
+    post.delete()
+    return redirect('')
 
 
 class PostList(ListView):
