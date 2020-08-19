@@ -59,6 +59,7 @@ class Post(models.Model):
     def get_create_url(self):
         return self.get_absolute_url() + 'create/'
 
+
 class Question(models.Model):
     objects = None
     title = models.CharField(max_length=30)
