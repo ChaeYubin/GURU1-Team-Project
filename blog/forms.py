@@ -4,7 +4,6 @@ from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth import get_user_model
 
 
-
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
