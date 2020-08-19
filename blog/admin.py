@@ -1,5 +1,4 @@
 from django.contrib import admin
-from .models import User, Post, Comment, Category, Question, Answer
 from .models import User, Post, Comment, Category, Tag, Question, Answer
 
 
