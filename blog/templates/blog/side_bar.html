@@ -14,32 +14,23 @@
 <!-- challenge certification widget -->
   <div class="side_bar">
     <h3>목표 달성률</h3>
-      {% for user in users %}
+      {% for user, rate in achieve_rates.items %}
         {% if user.id != user.is_superuser %} <!-- 관리자는 보이지 않음 -->
-      {{ user.id }}
           {% if request.user.id == user.id %} <!-- 현재 로그인한 유저라면 (색상 이사람만 다르게 하면 좋을듯) -->
                 <div class="card-body">
                 <h4 class="card-title">{{ user.get_username }}</h4>
-                <progress value="{{ achieve_rate.1 }}" max="100"></progress>
+                <progress value="{{ rate }}" max="100"></progress>
                 </div>
           {% else %}
             <!-- 현재 로그인한 유저가 아니라면 -->
                 <div class="card-body">
                 <h4 class="card-title">{{ user.get_username }}</h4>
-                <progress value="{{ 20 }}" max="100"></progress>
+                <progress value="{{ rate }}" max="100"></progress>
                 </div>
           {% endif %}
         {% endif %}
       {% endfor %}
   </div>
 <!-- //challenge certification widget -->
-<div>
-    {{ achieve_rate }}
-    {{ user_index }}
-
-{% for i in "x"|rjust:"10" %}
- {{ forloop.counter }}
-{% endfor %}
-</div>
 </body>
 </html>

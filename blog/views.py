@@ -230,14 +230,12 @@ class CommentUpdate(UpdateView):
 
 def user_info(request):
     users = User.objects.all()
-    achieve_rate = []
-    user_index = []
+    achieve_rates = {}
 
     for user in users:
-        achieve_rate.append(Post.objects.filter(category=1, author=user).count() * 10)
-        user_index.append(user.id-1)
+        achieve_rates[user] = Post.objects.filter(category=1, author=user).count() * 10
 
-    context = {'users': users, 'achieve_rate': achieve_rate, 'user_index': user_index}
+    context = {'users': users, 'achieve_rates': achieve_rates}
 
     return render(request, 'blog/side_bar.html', context)
 
