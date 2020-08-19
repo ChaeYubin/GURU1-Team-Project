@@ -79,39 +79,13 @@
 <div class="faq">
 	<div class="hgroup">
 		<h2>문의게시판</h2>
-		<button type="button" class="trigger"><span>답변모두 여닫기</span></button>
-		<button type="button" class="trigger"><span>글쓰기</span></button>
+		<button type="button" class="trigger" onclick="location.href='/blog/QnA/create'"><span>글쓰기</span></button>
 	</div>
 	<dl class="faq_list">
-		<dt><a href="#a1">Q:질문과 답변 목록은 어떻게?</a></dt>
-		<dd id="a1">
-			<p>A:질문과 답변은 문의게시판에서 하시면 됩니다.</p>
-		</dd>
-
-		<dt class="active"><a href="#a2">Q:개인정보 수정은 어떻게??</a></dt>
-		<dd id="a2" class="active"><p>A:개인정보 수정 클릭.</p>
-
-		</dd>
-
-		<dt><a href="#a3">Q:포스팅된 글은??</a></dt>
-		<dd id="a3">
-			<p>A:포스팅된 글은.</p>
-		</dd>
+		{% for q in questions %}
+		<dt><a href="{{ q.get_absolute_url }}">{{ q.title }}</a></dt>
+		{% endfor %}
 	</dl>
-	<ul>
-	<li class="article hide">
-		<p class="q"></p>
-		<p class="a">
-	</li>
-	<li class="article hide">
-		<p class="q"></p>
-		<p class="a">
-	</li>
-	<li class="article hide">
-		<p class="q"></p>
-		<p class="a">
-	</li>
-	</ul>
 </div>
 </body>
 </html>
