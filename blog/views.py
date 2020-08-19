@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from .models import User, Post, Category, Comment, Question
-from .forms import CommentForm
+from .models import User, Post, Category, Comment, Question, Answer
+from .forms import CommentForm, AnswerForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from tkinter import messagebox
@@ -183,20 +183,45 @@ class QuestionCreate(LoginRequiredMixin, CreateView):
             return redirect('/blog/QnA')
 
 
-class QuestionList(ListView):
-    model = Question
-
-    # 역순만들기
-    def get_queryset(self):
-        return Question.objects.order_by('-created')
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(QuestionList, self).get_context_data(**kwargs)
-        return context
-
-
 class QuestionUpdate(UpdateView):
     model = Question
     fields = [
         'title', 'content',
     ]
+
+
+class QuestionDetail(DetailView):
+    model = Question
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(QuestionDetail, self).get_context_data(**kwargs)
+        context['answer_form'] = AnswerForm()
+
+        return context
+
+
+def answer(request, pk):
+    question = Question.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        comment_form = AnswerForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.user = request.user
+            comment.author = request.user
+            comment.question = question
+            comment.save()
+            return redirect(comment.get_absolute_url())
+    else:
+        return redirect('/blog/QnA')
+
+
+class AnswerUpdate(UpdateView):
+    model = Answer
+    form_class = AnswerForm
+
+    def get_object(self, queryset=None):
+        answer = super(AnswerUpdate, self).get_object()
+        if answer.author != self.request.user:
+            raise PermissionError('Comment 수정 권한이 없습니다.')
+        return answer

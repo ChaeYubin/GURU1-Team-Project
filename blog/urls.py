@@ -19,18 +19,21 @@ from .import views
 app_name = "blog"
 
 urlpatterns = [
-    path('category/<str:slug>/', views.PostListByCategory.as_view()),
+    path('', views.PostList.as_view()),
     path('<int:pk>/update/', views.PostUpdate.as_view()),
     path('<int:pk>/', views.PostDetail.as_view()),
+    path('create/', views.PostCreate.as_view()),
+    path('category/<str:slug>/', views.PostListByCategory.as_view()),
     path('delete_comment/<int:pk>/', views.delete_comment),
     path('edit_comment/<int:pk>/', views.CommentUpdate.as_view()),
     path('<int:pk>/new_comment/', views.new_comment),
-    path('create/', views.PostCreate.as_view()),
-    path('', views.PostList.as_view()),
     path('login', views.login_view, name='login'),
     path('logout', views.logout_view, name='logout'),
     path('signup', views.signup_view, name='signup'),
     path('challenge', views.user_info),
     path('QnA', views.question),
     path('QnA/create', views.QuestionCreate.as_view()),
+    path('QnA/<int:pk>/update/', views.QuestionUpdate.as_view()),
+    path('QnA/<int:pk>/', views.QuestionDetail.as_view()),
+    path('QnA/<int:pk>/new_comment/', views.answer),
 ]

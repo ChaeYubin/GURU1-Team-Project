@@ -83,26 +83,9 @@
 	</div>
 	<dl class="faq_list">
 		{% for q in questions %}
-		<dt><a href="#a1">Q: {{ q.title }}</a></dt>
-		<dd id="a1">
-			<p>A: 질문과 답변은 문의게시판에서 하시면 됩니다.</p>
-		</dd>
+		<dt><a href="{{ q.get_absolute_url }}">{{ q.title }}</a></dt>
 		{% endfor %}
 	</dl>
-	<ul>
-	<li class="article hide">
-		<p class="q"></p>
-		<p class="a">
-	</li>
-	<li class="article hide">
-		<p class="q"></p>
-		<p class="a">
-	</li>
-	<li class="article hide">
-		<p class="q"></p>
-		<p class="a">
-	</li>
-	</ul>
 </div>
 </body>
 </html>

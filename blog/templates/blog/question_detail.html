@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load crispy_forms_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ blog_post.title }}</title>
+</head>
+<body>
+    <h1>{{ object.title }}</h1>
+    <div>
+        {{ object.content }}
+    </div>
+
+<!-- Comments Form -->
+<div class="card my-4">
+    <h5 class="card-header">답변</h5>
+    <div class="card-body">
+        <form method="post" action="{{ object.get_absolute_url }}new_comment/">{% csrf_token %}
+            <div class="form-group">
+                {{ answer_form | crispy }}
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
+<!-- Single Comment -->
+<div id="comment-list">
+    {% for answer in object.answer_set.all %}
+    <div class="media mb-4" id="comment-id-{{ comment.pk }}">
+        <div class="media-body">
+            <h5 class="mt-0">관리자 <small class="text-muted">{{ answer.created_at }}</small></h5>
+            {{ answer.get_markdown_content | safe }}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+</body>
+</html>
