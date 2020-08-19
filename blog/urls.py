@@ -27,7 +27,7 @@ urlpatterns = [
     path('edit_comment/<int:pk>/', views.CommentUpdate.as_view()),
     path('<int:pk>/new_comment/', views.new_comment),
     path('create/', views.PostCreate.as_view()),
-    path('main/', views.MainPostList.as_view()),
+    path('main/', views.MainPage),
     path('', views.PostList.as_view()),
     path('login', views.login_view, name='login'),
     path('logout', views.logout_view, name='logout'),
