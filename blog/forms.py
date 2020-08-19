@@ -1,4 +1,4 @@
-from .models import Comment
+from .models import Comment, Answer
 from django import forms
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth import get_user_model
@@ -10,6 +10,12 @@ class CommentForm(forms.ModelForm):
         fields = ('text',)
 
 
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = ('text',)
+
+        
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = get_user_model()

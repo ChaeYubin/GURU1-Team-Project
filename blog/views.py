@@ -1,8 +1,8 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from .models import User, Post, Category, Comment, Tag
-from .forms import CommentForm, CustomUserChangeForm
+from .models import User, Post, Category, Comment, Tag, Question, Answer
+from .forms import CommentForm, CustomUserChangeForm, AnswerForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from tkinter import messagebox
@@ -163,7 +163,6 @@ class PostUpdate(UpdateView):
 
 
 class PostListByCategory(ListView):
-
     def get_queryset(self):
         slug = self.kwargs['slug']
 
@@ -226,3 +225,74 @@ class CommentUpdate(UpdateView):
         if comment.author != self.request.user:
             raise PermissionError('Comment 수정 권한이 없습니다.')
         return comment
+
+
+def user_info(request):
+    users = User.objects.all()
+    context = {'users': users}
+    return render(request, 'blog/side_bar.html', context)
+
+
+def question(request):
+    questions = Question.objects.all()
+    context = {'questions': questions}
+    return render(request, 'blog/01-faq.html', context)
+
+
+class QuestionCreate(LoginRequiredMixin, CreateView):
+    model = Question
+    fields = [
+        'title', 'content'
+    ]
+
+    def form_valid(self, form):
+        current_user = self.request.user
+        if current_user.is_authenticated:
+            form.instance.author = current_user
+            return super(type(self), self).form_valid(form)
+        else:
+            return redirect('/blog/QnA')
+
+
+class QuestionUpdate(UpdateView):
+    model = Question
+    fields = [
+        'title', 'content',
+    ]
+
+
+class QuestionDetail(DetailView):
+    model = Question
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(QuestionDetail, self).get_context_data(**kwargs)
+        context['answer_form'] = AnswerForm()
+
+        return context
+
+
+def answer(request, pk):
+    question = Question.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        comment_form = AnswerForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.user = request.user
+            comment.author = request.user
+            comment.question = question
+            comment.save()
+            return redirect(comment.get_absolute_url())
+    else:
+        return redirect('/blog/QnA')
+
+
+class AnswerUpdate(UpdateView):
+    model = Answer
+    form_class = AnswerForm
+
+    def get_object(self, queryset=None):
+        answer = super(AnswerUpdate, self).get_object()
+        if answer.author != self.request.user:
+            raise PermissionError('Comment 수정 권한이 없습니다.')
+        return answer
