@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>faq</title>
+	<style>
+		/* reset */
+		html,body{width:100%;height:100%}
+		body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select{margin:0;padding:0]}
+		body,input,textarea,select,button,table{font-family:'Malgun Gothic',Dotum,AppleGothic,sans-serif;font-size:19px}
+		img,fieldset{border:0}
+		ul,ol{List-style:none}
+		em,adress{font-style:normal}
+		a{text-decoration:none}
+		a:hover,a:active,a:focus{text-decoration:underline}
+
+	/* style */
+	.faq{
+	width:600px;
+	margin: 0 auto;
+}
+	.faq .hgroup{
+		*zoom: 1;
+	}
+	.faq .hgroup:after{
+		content:' ';
+		display:block;
+		clear:both;
+	}
+	.faq .hgroup h2{
+		float:left;
+		padding: 15px 0;
+	}
+	.faq .hgroup button{
+		float:right;
+		margin: 18px 0 0 0;
+		border: 0;
+		background: none;
+		Letter-spacing:-1px;
+		cursor:pointer;
+	}
+	.faq .faq_list{
+		border-top:1px solid #ccc ;}
+	.faq .faq_list dt{}
+	.faq .faq_list dt a{
+		display:block;
+		padding: 8px 10px;
+		border-bottom:1px solid #ccc ;
+		color:#666;
+	}
+	.faq .faq_list dt a:hover{
+		background-color:#eee;
+		colot: #222;
+	}
+	.faq .faq_list dt.active a{
+		border-bottom:none;
+		background-color:#eee;
+		color:#222;
+		font-weight:bold;
+		text-decoration:none;
+	}
+	.faq .faq_list dd{
+		/*display:none;*/
+		padding:8px 10px;
+		border-bottom:1px solid #ccc ;
+		color: #666;
+		line-height:1.5;
+	}
+	.faq .faq_list dd.active{
+		display:block;
+	}
+	.faq .faq_list dd p{
+		margin: 8px o;
+	}
+	</style>
+</head>
+<body>
+<!--UI Object -->
+<div class="faq">
+	<div class="hgroup">
+		<h2>문의게시판</h2>
+		<button type="button" class="trigger" onclick="location.href='/blog/QnA/create'"><span>글쓰기</span></button>
+	</div>
+	<dl class="faq_list">
+		{% for q in questions %}
+		<dt><a href="#a1">Q: {{ q.title }}</a></dt>
+		<dd id="a1">
+			<p>A: 질문과 답변은 문의게시판에서 하시면 됩니다.</p>
+		</dd>
+		{% endfor %}
+	</dl>
+	<ul>
+	<li class="article hide">
+		<p class="q"></p>
+		<p class="a">
+	</li>
+	<li class="article hide">
+		<p class="q"></p>
+		<p class="a">
+	</li>
+	<li class="article hide">
+		<p class="q"></p>
+		<p class="a">
+	</li>
+	</ul>
+</div>
+</body>
+</html>

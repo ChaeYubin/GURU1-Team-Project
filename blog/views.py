@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from .models import User, Post, Category, Comment
+from .models import User, Post, Category, Comment, Question
 from .forms import CommentForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -160,3 +160,43 @@ def user_info(request):
     users = User.objects.all()
     context = {'users': users}
     return render(request, 'blog/side_bar.html', context)
+
+
+def question(request):
+    questions = Question.objects.all()
+    context = {'questions': questions}
+    return render(request, 'blog/01-faq.html', context)
+
+
+class QuestionCreate(LoginRequiredMixin, CreateView):
+    model = Question
+    fields = [
+        'title', 'content'
+    ]
+
+    def form_valid(self, form):
+        current_user = self.request.user
+        if current_user.is_authenticated:
+            form.instance.author = current_user
+            return super(type(self), self).form_valid(form)
+        else:
+            return redirect('/blog/QnA')
+
+
+class QuestionList(ListView):
+    model = Question
+
+    # 역순만들기
+    def get_queryset(self):
+        return Question.objects.order_by('-created')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(QuestionList, self).get_context_data(**kwargs)
+        return context
+
+
+class QuestionUpdate(UpdateView):
+    model = Question
+    fields = [
+        'title', 'content',
+    ]

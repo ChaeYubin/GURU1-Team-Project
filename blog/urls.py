@@ -31,4 +31,6 @@ urlpatterns = [
     path('logout', views.logout_view, name='logout'),
     path('signup', views.signup_view, name='signup'),
     path('challenge', views.user_info),
+    path('QnA', views.question),
+    path('QnA/create', views.QuestionCreate.as_view()),
 ]
