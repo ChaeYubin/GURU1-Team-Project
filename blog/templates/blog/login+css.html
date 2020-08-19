@@ -15,16 +15,17 @@
                 flex-direction: column
             }
 
-            a{text-decoration: none; color:#000000;}
-            *{margin: 0; padding: 0;}
-            li{font-size: 15pt;}
+        body{background-color: #F7F8FA}
+        a{text-decoration: none; color:#000000;}
+        *{margin: 0; padding: 0;}
+        li{font-size: 15pt;}
 
-            .wrapper{width:100%; margin:0 auto; background-color: white;padding: 20px;}
-            .clearfix{content: ''; display: block; clear: both;}
+        .wrapper{width:100%; margin:0 auto; background-color: white;padding: 20px;}
+        .clearfix{content: ''; display: block; clear: both;}
 
-            header{height:80px; background color:#eee; border: 1px; position: fixed; width: 100%; }
-            .menu li{color: black; padding:5px 60px 0px 0px;}
-            ul{text-align: center; list-style: none;}
+        header{height:80px; background color:#eee; border: 1px; position: fixed; width: 100%; }
+        .menu li{color: black; padding:5px 60px 0px 0px;}
+        ul{text-align: center; list-style: none;}
 
             .vl {
                   border-left: 2px solid black;
@@ -41,7 +42,7 @@
     <div class="vl"></div>
     <table width="100%" style=" border: none; text-align: center;">
         <tr>
-            <td colspan="1" style="; padding:150px;"></td>
+            <td colspan="1" style=";padding:150px;"></td>
         </tr>
         <tr>
             <td class="login" style="width:900px;">
@@ -50,13 +51,15 @@
                <p style=" width:100%;text-align: center;">
                 <br>
                 <input name="userID" type="text" placeholder="ID"
-                style="text-align: left; padding-left: 10px">
+                style="text-align: center; ">
                 <br><br>
                 <input name="password" type="password" placeholder="PW"
-                style="text-align: left; padding-left: 10px">
+                style="text-align: center;">
                 <br><br>
                 <input class="btn btn-primary" type="submit" value="로그인">
-               </p> 
+
+ 
+
             </td>
             <td class="join" style="width:1000px">
                 <h2>회원가입</h2>
@@ -64,13 +67,10 @@
                 <p style=" width:50%; text-align: center; ">
                 <br>
                 <form method="POST" action="">
-                <input name="username" type="text" placeholder="Name" style="text-align: left; padding-left: 10px"> 
-                <br><br>  
-                <input name="userID" type="text" placeholder="ID" style="text-align: left; padding-left: 10px">
+                
                 <br><br>
-                <input name="password" type="password" placeholder="PW" style="text-align: left; padding-left: 10px ">
-                <br><br>
-                <input class="btn btn-primary" type="submit" value="회원가입">
+                <input type="button" value="회원가입" onclick="location.href='signup+css.html'" >
+
 
                 </form>
                </p>
@@ -83,8 +83,8 @@
                 <ul class="menu">
                     <li  style="display:inline-block;"><a href="mainpage+css.html">Home</a></li>
                     <li  style="display:inline-block;"><a href="#">About</a></li>
-                    <li  style="display:inline-block;"><a href="#">User</a></li>
-                    <li  style="display:inline-block;"><a href="login_1.html">Login</a></li>
+                    <li  style="display:inline-block;"><a href="user_login+css.html">User</a></li>
+                    <li  style="display:inline-block;"><a href="login+css.html">Login</a></li>
                 </ul>
             </nav>
         </div>
