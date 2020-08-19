@@ -3,11 +3,11 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title> OO그룹 </title>
+    <title> 00그룹 </title>
 </head>
 <body>
 <h1> 그룹명 </h1>
-    <button class="btn btn-sm btn-primary float-right" onclick="location.href='/blog/create/'">New Post</button>
+<button class="btn btn-sm btn-primary float-right" onclick="location.href='/blog/create/'">New Post</button>
 {% for p in object_list %}
 <h3>{{ p.title }}</h3>
 {% if p.head_image %}

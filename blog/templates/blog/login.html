@@ -11,8 +11,10 @@
 <h1>Login</h1>
 
 {% if user.is_authenticated %}
-        {{ user.username }}님 환영합니다.
+        {{ user.nickname }} 님 환영합니다.
+<hr>
 <a href="{% url 'blog:logout' %}">로그아웃</a>
+<a href="{% url 'blog:update' %}">회원정보수정</a>
 
 {% else %}
 <form method="POST" action="">

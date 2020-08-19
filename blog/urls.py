@@ -20,6 +20,8 @@ app_name = "blog"
 
 urlpatterns = [
     path('', views.PostList.as_view()),
+    path('tag/<str:slug>/', views.PostListByTag.as_view()),
+    path('category/<str:slug>/', views.PostListByCategory.as_view()),
     path('<int:pk>/update/', views.PostUpdate.as_view()),
     path('<int:pk>/', views.PostDetail.as_view()),
     path('create/', views.PostCreate.as_view()),
@@ -36,4 +38,8 @@ urlpatterns = [
     path('QnA/<int:pk>/update/', views.QuestionUpdate.as_view()),
     path('QnA/<int:pk>/', views.QuestionDetail.as_view()),
     path('QnA/<int:pk>/new_comment/', views.answer),
+    path('main/', views.MainPage),
+    path('update', views.update, name='update'),
+    path('delete', views.delete, name='delete'),
+    path('password/', views.password, name='password'),
 ]
