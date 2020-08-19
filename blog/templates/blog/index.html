@@ -1,20 +1,15 @@
 <!DOCTYPE html>
-{% load static %}
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title> 00그룹 </title>
+    <title><a href=" {% url 'post_list' %}">Index</title>
 </head>
 <body>
-<h1>그룹명</a>  </h1>
-<h1><a href="{% url 'post_new' %}">새글</a></h1>
     {% for post in posts %}
         <li>
-<h1><a href ="{% url 'post_Detail' pk=post.pk %}">{{post.title}}</a></h1>
             {{ post.text }}
             {{ post.published_date }}
         </li>
     {% endfor %}
-
 </body>
 </html>
