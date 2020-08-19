@@ -6,10 +6,12 @@
 </head>
 <body>
 <form method="post">{% csrf_token %}
+     <table>
 
-    {{ form.as_table }}
-    <button type="submit" class="btn btn-primary float-right" onclick="location.href='{{ object.get_update_url }}'">Submit</button>
+        {{ form.as_table }}
 
+    </table>
+    <button type="submit" class="btn btn-primary float-right" >Submit</button>
 </form>
 </body>
 </html>
