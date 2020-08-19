@@ -156,6 +156,7 @@ class PostCreate(LoginRequiredMixin, CreateView):
             return redirect('/blog/')
 
 
+
 class PostUpdate(UpdateView):
     model = Post
     fields = [
