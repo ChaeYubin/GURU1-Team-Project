@@ -25,11 +25,11 @@
 		<div class="wrapper">
 			<nav>
 				<ul class="menu">
-					<li  style="display:inline-block;"><a href="mainpage+css.html">Home</a></li>
-					<li  style="display:inline-block;"><a href="#">About</a></li>
+					<li  style="display:inline-block;"><a href="{% url 'blog:main' %}">Home</a></li>
+					<li  style="display:inline-block;"><a href="{% url 'blog:QnA' %}">About</a></li>
 					<li  style="display:inline-block;"><a href="#">Q&A</a></li>
-					<li  style="display:inline-block;"><a href="user_login+css.html">User</a></li>
-					<li  style="display:inline-block;"><a href="login+css.html">Login</a></li>
+					<li  style="display:inline-block;"><a href="{% url 'blog:mypage' %}">User</a></li>
+					<li  style="display:inline-block;"><a href="{% url 'blog:logout' %}">Logout</a></li>
 				</ul>
 			</nav>
 		</div>
