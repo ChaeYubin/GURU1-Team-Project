@@ -8,7 +8,7 @@
 <body>
     <h1>{{ object.title }}</h1>
     <div>
-        {{ object.content }}
+        {{ object.get_markdown_content | safe }}
     </div>
 
 {% if request.user.is_superuser %}
