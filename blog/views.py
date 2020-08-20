@@ -57,7 +57,14 @@ def update(request):
 
     else:
         user_change_form = CustomUserChangeForm(instance=request.user)
-    return render(request, 'blog/update.html', {'user_change_form': user_change_form})
+        model = Post
+        users = User.objects.all()
+        achieve_rates = {}
+        for user in users:
+            achieve_rates[user] = Post.objects.filter(category=1, author=user).count() * 10
+        user_rates = achieve_rates[request.user]
+    return render(request, 'blog/update.html', {'user_change_form': user_change_form, 'achieve_rates': achieve_rates,
+                                                'user_rates': user_rates})
 
 
 @login_required
