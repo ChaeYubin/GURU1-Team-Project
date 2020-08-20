@@ -59,6 +59,9 @@ class Post(models.Model):
     def get_create_url(self):
         return self.get_absolute_url() + 'create/'
 
+    def get_delete_url(self):
+        return '/blog/delete_post/{}/'.format(self.pk)
+
 
 class Question(models.Model):
     objects = None
