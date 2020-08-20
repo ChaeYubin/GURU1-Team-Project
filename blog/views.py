@@ -119,7 +119,7 @@ class PostList(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PostList, self).get_context_data(**kwargs)
-        users = User.objects.all()
+        users = User.objects.exclude(is_superuser=True)
         achieve_rates = {}
         group_rates = 0
         for user in users:
@@ -157,7 +157,7 @@ class PostDetail(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PostDetail, self).get_context_data(**kwargs)
-        users = User.objects.all()
+        users = User.objects.exclude(is_superuser=True)
         achieve_rates = {}
         group_rates = 0
         for user in users:
