@@ -18,6 +18,7 @@
         body{background-color: #F7F8FA}
         .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:15%; right:10%; border-radius:10px;}
 		.group{padding-top:100px; padding-left:20%}
+	    	.content{width:1000px;}
     </style>
 </head>
 <body>
@@ -37,7 +38,7 @@
 
 <div class="group">
 	<h1 >{{ object.title }}</h1>
-	<div>
+	<div class="content">
 		<br>
 		<button type="button" class="btn btn-sm btn-outline-secondary float-right" onclick="location.href='{{ object.get_update_url }}'">수정</button>{% load crispy_forms_tags %}
 		<br><br>
