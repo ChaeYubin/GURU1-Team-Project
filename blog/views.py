@@ -18,7 +18,7 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return render(request, "blog/post_list+css.html")
+            return render(request, "blog/post_list.html")
         else:
             messagebox.showinfo("warning", "ID 또는 비밀번호가 올바르지 않습니다.")
 
@@ -96,7 +96,7 @@ def password(request):
 def MainPage(request):
     model = Post
     tags = Tag.objects.all()
-    return render(request, 'blog/post_list+css.html', {'tags': tags, })
+    return render(request, 'blog/post_list.html', {'tags': tags, })
 
 
 class PostList(ListView):
