@@ -51,7 +51,7 @@ def signup_view(request):
 
 
 @login_required
-def update(request):
+def update_user(request):
     if request.method == 'POST':
         user_change_form = CustomUserChangeForm(request.POST, instance=request.user)
         if user_change_form.is_valid():
@@ -66,8 +66,7 @@ def update(request):
         for user in users:
             achieve_rates[user] = Post.objects.filter(category=1, author=user).count() * 10
         user_rates = achieve_rates[request.user]
-    return render(request, 'blog/update.html', {'user_change_form': user_change_form, 'achieve_rates': achieve_rates,
-                                                'user_rates': user_rates})
+    return render(request, 'blog/manage.html', {'user_change_form': user_change_form})
 
 
 @login_required
