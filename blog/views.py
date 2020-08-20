@@ -92,7 +92,7 @@ def MainPage(request):
         request,
         'blog/main_page.html',
         {
-            'tags':tags,
+            'tags': tags,
         }
     )
 
@@ -106,8 +106,14 @@ class PostList(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PostList, self).get_context_data(**kwargs)
+        users = User.objects.all()
+        achieve_rates = {}
+        for user in users:
+            achieve_rates[user] = Post.objects.filter(category=1, author=user).count() * 10
         context['category_list'] = Category.objects.all()
         context['posts_without_category'] = Post.objects.filter(category=None).count()
+        context['users'] = users
+        context['achieve_rates'] = achieve_rates
 
         return context
 
@@ -154,7 +160,6 @@ class PostCreate(LoginRequiredMixin, CreateView):
             return super(type(self), self).form_valid(form)
         else:
             return redirect('/blog/')
-
 
 
 class PostUpdate(UpdateView):
@@ -238,7 +243,7 @@ def user_info(request):
 
     context = {'users': users, 'achieve_rates': achieve_rates}
 
-    return render(request, 'blog/side_bar.html', context)
+    return render(request, 'blog/post_list.html', context)
 
 
 def question(request):
