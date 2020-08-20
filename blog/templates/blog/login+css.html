@@ -39,7 +39,18 @@
 </head>
 <body>
 {% if user.is_authenticated %}
-return redirect("{% url 'blog:main' %}")
+    <header>
+        <div class="wrapper">
+            <nav>
+                <ul class="menu">
+                    <li  style="display:inline-block;"><a href="main">Home</a></li>
+                    <li  style="display:inline-block;"><a href="QnA">About</a></li>
+                    <li  style="display:inline-block;"><a href="mypage">User</a></li>
+                    <li  style="display:inline-block;"><a href="logout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 {% else %}
 <form method="POST" action="">
     {% csrf_token %}

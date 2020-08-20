@@ -1,34 +1,32 @@
 <!DOCTYPE html>
+{% load bootstrap4 %}
+{% block container %}
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>form</title>
+	<title>Edit User</title>
 </head>
 <body>
+<form method="POST">
+    {% csrf_token %}
 
-<form action="#" method="post"> <!--get | post -->
 	<fieldset>
 		<legend>회원정보수정</legend>
 		<p>
-			<label for="name">닉네임</label>
-			<input type="text" id="name">
+			<label for="nickname">Nickname</label>
+			<input type="text" id="nickname">
 		</p>
 		<p>
-		<label for="idname">기존 아이디</label>
-		<input type="text" id="idname" name="idname" value="">
-	    </p>
-		<p>
-		<label for="idname">새 아이디</label>
-		<input type="text" id="idname" name="idname" value="">
-		<input type="button" value="아이디 중복확인">
-	    </p>
-	    <p>
-		<label for="userpass">기존 비밀번호</label>
-		<input type="password" id="userpass" name="userpass" value="">
+			<label for="email">Email</label>
+			<input type="text" id="email">
 		</p>
 	    <p>
-		<label for="userpass">새 비밀번호</label>
-		<input type="password" id="userpass" name="userpass" value="">
+		<label for="password1">Password</label>
+		<input type="password" id="password1" name="password1" value="">
+		</p>
+	    <p>
+		<label for="password2">Confirm password</label>
+		<input type="password" id="password2" name="password2" value="">
 		</p>
 
 	</fieldset>
@@ -40,4 +38,5 @@
 </form>
 
 </body>
+{% endblock %}
 </html>
