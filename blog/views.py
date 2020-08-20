@@ -19,7 +19,7 @@ def login_view(request):
         if user is not None:
             login(request, user)
 
-    return render(request, "blog/login.html")
+    return render(request, "blog/login+css.html")
 
 
 def logout_view(request):
@@ -44,7 +44,7 @@ def signup_view(request):
             return redirect("blog:login")
         else:
             messagebox.showinfo("warning", "패스워드가 서로 다릅니다.")
-    return render(request, "blog/signup.html")
+    return render(request, "blog/signup+css.html")
 
 
 @login_required
@@ -70,9 +70,10 @@ def update(request):
 @login_required
 def delete(request):
     if request.method == 'POST':
-        request.user.delete()
-        return redirect('blog:login')
-    return render(request, 'blog/delete.html')
+        if request.POST["password"] == User.objects.password:
+            request.user.delete()
+            return redirect('blog:login')
+    return render(request, 'blog/탈퇴.html')
 
 
 @login_required
@@ -97,7 +98,7 @@ def MainPage(request):
     tags = Tag.objects.all()
     return render(
         request,
-        'blog/main_page.html',
+        'blog/mainpage+css.html',
         {
             'tags': tags,
         }
@@ -331,5 +332,8 @@ class AnswerUpdate(UpdateView):
         if answer.author != self.request.user:
             raise PermissionError('Comment 수정 권한이 없습니다.')
         return answer
+
+def mypage(request):
+    return render(request, "blog/회원관리페이지메뉴.html")
 
 

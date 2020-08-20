@@ -7,7 +7,6 @@
     {% csrf_token %}
 
     <p>ID(Username): {{ user.username }}</p>
-    <p>목표 달성률: {{ user_rates }}%</p>
     {% bootstrap_form user_change_form %}
     <input type="submit" value="Submit"/>
 </form>

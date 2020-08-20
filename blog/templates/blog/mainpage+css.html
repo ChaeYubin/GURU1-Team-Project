@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<title>static menu</title>
 	<style>
 		body{
@@ -30,18 +31,39 @@
 	</style>
 </head>
 <body>
-	<header>
-		<div class="wrapper">
-			<nav>
-				<ul class="menu">
-					<li  style="display:inline-block;"><a href="mainpage+css.html">Home</a></li>
-					<li  style="display:inline-block;"><a href="#">About</a></li>
-					<li  style="display:inline-block;"><a href="user_login+css.html">User</a></li>
-					<li  style="display:inline-block;"><a href="login+css.html">Login</a></li>
-				</ul>
-			</nav>
-		</div>
-	</header>
+<ul class="list-group">
+	{% for tag in object.tags.all %}
+	<li> class="list-group-item"> {{ tag.get_absolute_url }} </li>
+	{% endfor %}
+</ul>
+{% if user.is_authenticated %}
+<header>
+	<div class="wrapper">
+		<nav>
+			<ul class="menu">
+				<li  style="display:inline-block;"><a href="{% url 'blog:main' %}">Home</a></li>
+				<li  style="display:inline-block;"><a href="{blog:'QnA'}">About</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:mypage' %}">User</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:logout' %}">Logout</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
 
+{% else %}
+<header>
+	<div class="wrapper">
+		<nav>
+			<ul class="menu">
+				<li  style="display:inline-block;"><a href="{% url 'blog:main' %}">Home</a></li>
+				<li  style="display:inline-block;"><a href="{blog:'QnA'}">About</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:mypage' %}">User</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:login' %}">Login</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+</form>
+{% endif %}
 </body>
 </html>
