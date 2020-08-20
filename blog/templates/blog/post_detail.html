@@ -17,6 +17,7 @@
 		
         body{background-color: #F7F8FA}
         .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:15%; right:10%; border-radius:10px;}
+		.group{padding-top:100px; padding-left:20%}
     </style>
 </head>
 <body>
@@ -34,60 +35,64 @@
 		</div>
 	</header>
 
-<h1 style="padding-left: 380px; padding-top: 100px;">{{ object.title }}</h1>
-<div style="padding-left: 380px">
-	<br>
-	<button type="button" class="btn btn-sm btn-outline-secondary float-right" onclick="location.href='{{ object.get_update_url }}'">수정</button>{% load crispy_forms_tags %}
-	<br><br>
-    {{ object.content }}
-    {% if object.category %}
-    <span class="badge badge-primary float-right">{{ object.category }}</span>
-    {% else %}
-    <span class="badge badge-primary float-right">미분류</span>
-    {% endif %}
+<div class="group">
+	<h1 >{{ object.title }}</h1>
+	<div>
+		<br>
+		<button type="button" class="btn btn-sm btn-outline-secondary float-right" onclick="location.href='{{ object.get_update_url }}'">수정</button>{% load crispy_forms_tags %}
+		<br><br>
+	    {{ object.content }}
+	    {% if object.category %}
+	    <span class="badge badge-primary float-right">{{ object.category }}</span>
+	    {% else %}
+	    <span class="badge badge-primary float-right">미분류</span>
+	    {% endif %}
 
-    {{ object.content }}
-    {% for tag in object.tags.all %}
-    <a href="{{ tag.get_absolute_url }}">#{{tag}}</a>
-    {% endfor %}
+	    {{ object.content }}
+	    {% for tag in object.tags.all %}
+	    <a href="{{ tag.get_absolute_url }}">#{{tag}}</a>
+	    {% endfor %}
+	</div>
+
+	<!-- Comments Form -->
+	<div  class="card my-4" >
+		<br>
+	    <h5 class="card-header">Leave a Comment:</h5>
+	    <div class="card-body">
+	        <form method="post" action="{{ object.get_absolute_url }}new_comment/">{% csrf_token %}
+	            <div class="form-group">
+	                {{ comment_form | crispy }}
+	            </div>
+	            <br>
+	            <button type="submit" class="btn btn-primary" onclick="location.href='{{ object.get_update_url }}'">Submit</button>
+	        </form>
+	    </div>
+	</div>
+
+	<!-- Single Comment -->
+	<div  id="comment-list">
+		<br>
+	    {% for comment in object.comment_set.all %}
+	    <div class="media mb-4" id="comment-id-{{ comment.pk }}">
+	        <div class="media-body">
+	            {% if comment.author == request.user %}
+	            <button onclick="location.href='/blog/delete_comment/{{ comment.pk }}/'">delete</button>
+	            <button onclick="location.href='/blog/edit_comment/{{ comment.pk }}/'">edit</button>
+	            {% endif %}
+	            <h5 class="mt-0">{{ comment.author }} <small class="text-muted">{{ comment.created_at }}</small></h5>
+	            {{ comment.get_markdown_content | safe }}
+	        </div>
+	    </div>
+	    <br>{% endfor %}
+
+	</div>
 </div>
-
-<!-- Comments Form -->
-<div style="padding-left: 380px" class="card my-4" >
-    <h5 class="card-header">Leave a Comment:</h5>
-    <div class="card-body">
-        <form method="post" action="{{ object.get_absolute_url }}new_comment/">{% csrf_token %}
-            <div class="form-group">
-                {{ comment_form | crispy }}
-            </div>
-            <br>
-            <button type="submit" class="btn btn-primary" onclick="location.href='{{ object.get_update_url }}'">Submit</button>
-        </form>
-    </div>
-</div>
-
-<!-- Single Comment -->
-<div style="padding-left: 380px" id="comment-list">
-	<br>
-    {% for comment in object.comment_set.all %}
-    <div class="media mb-4" id="comment-id-{{ comment.pk }}">
-        <div class="media-body">
-            {% if comment.author == request.user %}
-            <button onclick="location.href='/blog/delete_comment/{{ comment.pk }}/'">delete</button>
-            <button onclick="location.href='/blog/edit_comment/{{ comment.pk }}/'">edit</button>
-            {% endif %}
-            <h5 class="mt-0">{{ comment.author }} <small class="text-muted">{{ comment.created_at }}</small></h5>
-            {{ comment.get_markdown_content | safe }}
-        </div>
-    </div>
-    <br>{% endfor %}
-
-</div>
-
 <!-- challenge certification widget -->
   <div class="side_bar">
-    <h3>목표 달성률</h3>
+  	<br>
+    <h3 style="text-align: center">목표 달성률</h3>
       <div class="card-body">
+      <br>
       <h4 class="card-title"> 그룹 평균</h4>
       <progress value="{{ group_rates }}" max="100"></progress>
       </div>
@@ -95,12 +100,14 @@
         {% if user.id != user.is_superuser %} <!-- 관리자는 보이지 않음 -->
           {% if request.user.id == user.id %} <!-- 현재 로그인한 유저라면 (색상 이사람만 다르게 하면 좋을듯) -->
                 <div class="card-body">
+                <br>
                 <h4 class="card-title">{{ user.get_username }}</h4>
                 <progress value="{{ rate }}" max="100"></progress>
                 </div>
           {% else %}
             <!-- 현재 로그인한 유저가 아니라면 -->
                 <div class="card-body">
+                <br>
                 <h4 class="card-title">{{ user.get_username }}</h4>
                 <progress value="{{ rate }}" max="100"></progress>
                 </div>
