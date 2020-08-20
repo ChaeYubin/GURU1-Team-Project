@@ -18,6 +18,7 @@
 		.post_wrap{padding:20px; border:1px solid black; width:60%}
 		.post_info{font-size:0.8em; color:gray}
 		.category{color: orange}
+		.read_more{color: navy}
         .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:19%; right:10%; border-radius:10px;}
     </style>
 </head>
@@ -59,11 +60,11 @@
 
         <h4>{{ p.content | truncatewords:50 }}</h4>
 
-        {% for tag in object.tags.all %}
+        {% for tag in p.tags.all %}
         <a href="{{ tag.get_absolute_url }}">#{{ tag }}</a>
         {% endfor %}
-
-        <a href="{{ p.get_absolute_url }}" class="btn btn-primary">  Read More &rarr;</a>
+        <br>
+        <a href="{{ p.get_absolute_url }}" class="read_more">  Read More &rarr;</a>
 
     </div>
     <br>
