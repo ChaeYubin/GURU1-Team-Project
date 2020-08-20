@@ -4,21 +4,19 @@
 	<meta charset="UTF-8">
 	<title>QnA board</title>
 	<style>
-		/* reset */
-		html,body{width:100%;height:100%}
-		body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select{margin:0;padding:0]}
-		body,input,textarea,select,button,table{font-family:'Malgun Gothic',Dotum,AppleGothic,sans-serif;font-size:19px}
-		img,fieldset{border:0}
-		ul,ol{List-style:none}
-		em,adress{font-style:normal}
-		a{text-decoration:none}
-		a:hover,a:active,a:focus{text-decoration:underline}
+    	body{background-color: #F7F8FA}
+    	a{text-decoration: none; color:#000000;}
+		*{margin: 0; padding: 0;}
+		li{font-size: 15pt;}
+		.group{padding:150px;}
+		.wrapper{width:100%; margin:0 auto; background-color: white;padding: 20px;}
+		.clearfix{content: ''; display: block; clear: both;}
 
-	/* style */
-	.faq{
-	width:600px;
-	margin: 0 auto;
-}
+		header{height:80px; background color:#eee; border: 1px; position: fixed; width: 100%; }
+		.menu li{color: black; padding:5px 60px 0px 0px;}
+		ul{text-align: center; list-style: none;}
+        .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:15%; right:10%; border-radius:10px;}
+	.faq{width:600px;margin: 0 auto;}
 	.faq .hgroup{
 		*zoom: 1;
 	}
@@ -75,6 +73,25 @@
 	</style>
 </head>
 <body>
+<div class="wrapper">
+
+		<nav>
+
+			<ul class="menu">
+
+				<li  style="display:inline-block;"><a href="{% url 'blog:main' %}">Home</a></li>
+
+				<li  style="display:inline-block;"><a href="{% url 'blog:QnA' %}">About</a></li>
+				<li  style="display:inline-block;"><a href="#">Q&A</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:mypage' %}">User</a></li>
+
+				<li  style="display:inline-block;"><a href="{% url 'blog:logout' %}">Logout</a></li>
+
+			</ul>
+
+		</nav>
+
+	</div>
 <!--UI Object -->
 <div class="faq">
 	<div class="hgroup">
