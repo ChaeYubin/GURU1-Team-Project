@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport"
+       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <style>
+ 	input{height: 30px; width:300px; text-align: center;}
+ 		body{background-color: #F7F8FA}
+ 		a{text-decoration: none; color:#000000;}
+		*{margin: 0; padding: 0;}
+		li{font-size: 15pt;}
+
+		.wrapper{width:100%; margin:0 auto; background-color: white;padding: 20px;}
+		.clearfix{content: ''; display: block; clear: both;}
+
+		header{height:80px; background color:#eee; border: 1px; position: fixed; width: 100%; }
+		.menu li{color: black; padding:5px 60px 0px 0px;}
+		ul{text-align: center; list-style: none;}
+	    #회원가입{
+                display:flex;
+                flex-direction: column
+            }
+
+
+ </style>
+ <title>회원가입</title>
+</head>
+		
+<body>
+    <header>
+		<div class="wrapper">
+			<nav>
+				<ul class="menu">
+					<li  style="display:inline-block;"><a href="mainpage+css.html">Home</a></li>
+					<li  style="display:inline-block;"><a href="#">About</a></li>
+					<li  style="display:inline-block;"><a href="user_login+css.html">User</a></li>
+					<li  style="display:inline-block;"><a href="login+css.html">Login</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+<div class=회원가입 style="text-align: center; padding:200px 0px 100px 0px">
+	<br><br><br><br>
+	<h2>회원가입</h2>
+	<br>
+	<form method="POST" action="">
+
+	<input name="username" type="text" placeholder="ID(Username)">
+	 <br><br>
+	<input name="nickname" type="text" placeholder="Nickname">
+	 <br><br>
+	<input name="email" type="text" placeholder="Email">
+	 <br><br>
+	<input name="password1" type="password" placeholder="Password">	 
+	 <br><br>
+	<input name="password2" type="password" placeholder="Confirm Password"> 
+	 <br><br>
+	 <input class="btn btn-primary" type="submit" value="회원가입">
+	 <a href="login+css.html"><br><br>
+	 로그인창으로 돌아가기</a>
+</div>
+</form>
+</body>
+</html>

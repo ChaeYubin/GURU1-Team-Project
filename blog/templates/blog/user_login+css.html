@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ko">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Login</title>
+        <style>
+            input{height: 30px; width:300px; text-align: center;}
+
+            body{background-color: #F7F8FA}
+            #login, #join{
+                display:flex;
+                flex-direction: column
+            }
+
+        body{background-color: #F7F8FA}
+        a{text-decoration: none; color:#000000;}
+        *{margin: 0; padding: 0;}
+        li{font-size: 15pt;}
+
+        .wrapper{width:100%; margin:0 auto; background-color: white;padding: 20px;}
+        .clearfix{content: ''; display: block; clear: both;}
+
+        header{height:80px; background color:#eee; border: 1px; position: fixed; width: 100%; }
+        .menu li{color: black; padding:5px 60px 0px 0px;}
+        ul{text-align: center; list-style: none;}
+
+        </style>
+</head>
+<body>
+    
+    <header>
+        <div class="wrapper">
+            <nav>
+                <ul class="menu">
+                    <li  style="display:inline-block;"><a href="mainpage+css.html">Home</a></li>
+                    <li  style="display:inline-block;"><a href="#">About</a></li>
+                    <li  style="display:inline-block;"><a href="user_login.html">User</a></li>
+                    <li  style="display:inline-block;"><a href="login+css.html">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="vl"></div>
+    <table width="100%" style=" border: none; text-align: center;">
+        <tr>
+            <td colspan="1" style=";padding:150px;"></td>
+        </tr>
+        <tr>
+            <td class="login" style="width:900px;">
+               <h2>로그인</h2>
+
+               <p style=" width:100%;text-align: center;">
+                <br>
+                <input name="userID" type="text" placeholder="ID"
+                style="text-align: center; ">
+                <br><br>
+                <input name="password" type="password" placeholder="PW"
+                style="text-align: center;">
+                <br><br>
+                <input class="btn btn-primary" type="submit" value="로그인">
+                <br><br>
+                <a href="정보수정">회원정보 수정</a>
+               </p> 
+            </td>
+         </tr>
+         <div>
+    </div>
+    
+
+    
+<hr>
+<a href="{% url 'blog:logout' %}">로그아웃</a>
+<a href="{% url 'blog:update' %}">회원정보수정</a>
+
+
+</body>
+</html>

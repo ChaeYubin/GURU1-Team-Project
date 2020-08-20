@@ -231,7 +231,13 @@ class CommentUpdate(UpdateView):
 
 def user_info(request):
     users = User.objects.all()
-    context = {'users': users}
+    achieve_rates = {}
+
+    for user in users:
+        achieve_rates[user] = Post.objects.filter(category=1, author=user).count() * 10
+
+    context = {'users': users, 'achieve_rates': achieve_rates}
+
     return render(request, 'blog/side_bar.html', context)
 
 
@@ -298,3 +304,5 @@ class AnswerUpdate(UpdateView):
         if answer.author != self.request.user:
             raise PermissionError('Comment 수정 권한이 없습니다.')
         return answer
+
+

@@ -4,28 +4,37 @@
 	<meta charset="UTF-8">
 	<title>static menu</title>
 	<style>
-		
+		body{
+			width: 1910px;
+			height: 1027px;
+			background-image: url(../group/img/background_1.jpg);
+			background-repeat: no-repeat;
+			background-size: cover;	
+			background-attachment: scroll;	
+			
+		}
+		a{text-decoration: none; color:#000000;}
 		*{margin: 0; padding: 0;}
-		li{list-style: inline; font-size: 15pt;}
+		li{font-size: 15pt;}
 
-		.wrapper{width:100%; margin:0 auto;}
+		.wrapper{width:100%; margin:0 auto; background-color: white;padding: 20px;}
 		.clearfix{content: ''; display: block; clear: both;}
 
-		header{height:80px; background color:#eee; border: 1px solid #253342; position: fixed; width: 100%; }
-		h1{font-size: 25pt; color:black; line-height: 80px; float: left; padding: 0px 20px 0px 20px;}
-		.menu li{color: black; float:left; padding:25px 20px 20px 20px;}
+		header{height:80px; background color:#eee; border: 1px; position: fixed; width: 100%; }
+		.menu li{color: black; padding:5px 60px 0px 0px;}
+		ul{text-align: center; list-style: none;}
 		
 	</style>
 </head>
 <body>
 	<header>
 		<div class="wrapper">
-			<h1>WEBSITE</h1>
 			<nav>
 				<ul class="menu">
-					<li style="display:inline"><a href="#" style="text-decoration: none">Home</a></li>
-					<li style="display:inline"><a href="#" style="text-decoration: none">About</a></li>
-					<li style="display:inline"><a href="#" style="text-decoration: none">Team</a></li>
+					<li  style="display:inline-block;"><a href="mainpage+css.html">Home</a></li>
+					<li  style="display:inline-block;"><a href="#">About</a></li>
+					<li  style="display:inline-block;"><a href="user_login+css.html">User</a></li>
+					<li  style="display:inline-block;"><a href="login+css.html">Login</a></li>
 				</ul>
 			</nav>
 		</div>
