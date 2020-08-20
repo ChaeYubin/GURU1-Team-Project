@@ -99,6 +99,16 @@ def MainPage(request):
     return render(request, 'blog/post_list.html', {'tags': tags, })
 
 
+def delete_post(request, pk):
+    deletepost = Post.objects.get(pk=pk)
+
+    if request.user == deletepost.author:
+        deletepost.delete()
+        return redirect('/blog/')
+    else:
+        raise PermissionError('Post 삭제 권한이 없습니다.')
+
+
 class PostList(ListView):
     model = Post
     paginate_by = 5

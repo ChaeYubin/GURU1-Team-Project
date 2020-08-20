@@ -10,7 +10,11 @@
     </style>
 </head>
 <body>
+{% if request.user == object.author%}
 <button type="button" class="btn btn-sm btn-outline-secondary float-right" onclick="location.href='{{ object.get_update_url }}'">수정</button>
+<button type="button" class="btn btn-sm btn-outline-secondary float-right" onclick="location.href='{{ object.get_delete_url }}'">삭제</button>
+{% endif %}
+
 
 <h1 style="text-align: center">{{ object.title }}</h1>
 <div style="text-align: center">
