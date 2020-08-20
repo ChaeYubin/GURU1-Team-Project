@@ -36,9 +36,11 @@
 
 <div class=group>
 	<h1>그룹명</h1>
+	<br>
 	    <button style="height: 30px; width:100px;" class="btn btn-sm btn-primary float-right" onclick="location.href='/blog/create/'">New Post</button>
+	    <br><br>
+    	{% for p in object_list %}
 
-    {% for p in object_list %}
     <div class="post_wrap">
         <h3>{{ p.title }}</h3>
         <div class="post_info"><p>{{ p.created }} by {{ p.author }}</p></div>
@@ -61,6 +63,7 @@
         <a href="{{ p.get_absolute_url }}" class="btn btn-primary">  Read More &rarr;</a>
 
     </div>
+    <br>
     {% endfor %}
 
 </div>
