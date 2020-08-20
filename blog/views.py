@@ -101,6 +101,7 @@ def MainPage(request):
 
 class PostList(ListView):
     model = Post
+    paginate_by = 5
 
     # 역순만들기
     def get_queryset(self):
