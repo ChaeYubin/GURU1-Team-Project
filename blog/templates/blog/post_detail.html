@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ blog_post.title }}</title>
+    <style>
+        .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:15%; right:10%; border-radius:10px}
+    </style>
 </head>
 <body>
 <button type="button" class="btn btn-sm btn-outline-secondary float-right" onclick="location.href='{{ object.get_update_url }}'">수정</button>
@@ -52,6 +55,31 @@
     {% endfor %}
 </div>
 
+<!-- challenge certification widget -->
+  <div class="side_bar">
+    <h3>목표 달성률</h3>
+      <div class="card-body">
+      <h4 class="card-title"> 그룹 평균</h4>
+      <progress value="{{ group_rates }}" max="100"></progress>
+      </div>
+      {% for user, rate in achieve_rates.items %}
+        {% if user.id != user.is_superuser %} <!-- 관리자는 보이지 않음 -->
+          {% if request.user.id == user.id %} <!-- 현재 로그인한 유저라면 (색상 이사람만 다르게 하면 좋을듯) -->
+                <div class="card-body">
+                <h4 class="card-title">{{ user.get_username }}</h4>
+                <progress value="{{ rate }}" max="100"></progress>
+                </div>
+          {% else %}
+            <!-- 현재 로그인한 유저가 아니라면 -->
+                <div class="card-body">
+                <h4 class="card-title">{{ user.get_username }}</h4>
+                <progress value="{{ rate }}" max="100"></progress>
+                </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+  </div>
+<!-- //challenge certification widget -->
 
 </body>
 </html>

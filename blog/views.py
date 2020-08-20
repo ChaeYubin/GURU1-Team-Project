@@ -108,12 +108,16 @@ class PostList(ListView):
         context = super(PostList, self).get_context_data(**kwargs)
         users = User.objects.all()
         achieve_rates = {}
+        group_rates = 0
         for user in users:
             achieve_rates[user] = Post.objects.filter(category=1, author=user).count() * 10
+            group_rates += achieve_rates[user]
+        group_rates //= len(achieve_rates)
         context['category_list'] = Category.objects.all()
         context['posts_without_category'] = Post.objects.filter(category=None).count()
         context['users'] = users
         context['achieve_rates'] = achieve_rates
+        context['group_rates'] = group_rates
 
         return context
 
@@ -140,9 +144,20 @@ class PostDetail(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PostDetail, self).get_context_data(**kwargs)
+        users = User.objects.all()
+        achieve_rates = {}
+        group_rates = 0
+        for user in users:
+            achieve_rates[user] = Post.objects.filter(category=1, author=user).count() * 10
+            group_rates += achieve_rates[user]
+        group_rates //= len(achieve_rates)
+
         context['category_list'] = Category.objects.all()
         context['posts_without_category'] = Post.objects.filter(category=None).count()
         context['comment_form'] = CommentForm()
+        context['users'] = users
+        context['achieve_rates'] = achieve_rates
+        context['group_rates'] = group_rates
 
         return context
 
