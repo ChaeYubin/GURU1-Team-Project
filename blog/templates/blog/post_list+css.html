@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title> 00그룹 </title>
+    <style>
+    	body{background-color: #F7F8FA}
+    	a{text-decoration: none; color:#000000;}
+		*{margin: 0; padding: 0;}
+		li{font-size: 15pt;}
+		.group{padding:150px;}
+		.wrapper{width:100%; margin:0 auto; background-color: white;padding: 20px;}
+		.clearfix{content: ''; display: block; clear: both;}
+
+		header{height:80px; background color:#eee; border: 1px; position: fixed; width: 100%; }
+		.menu li{color: black; padding:5px 60px 0px 0px;}
+		ul{text-align: center; list-style: none;}
+        .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:15%; right:10%; border-radius:10px;}
+    </style>
+</head>
+<body>
+<header>
+	<div class="wrapper">
+		<nav>
+			<ul class="menu">
+				<li  style="display:inline-block;"><a href="{% url 'blog:main' %}">Home</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:QnA' %}">About</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:mypage' %}">User</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:logout' %}">Logout</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+
+<div class=group>
+	<h1>그룹명</h1>
+	    <button style="height: 30px; width:300px;"class="btn btn-sm btn-primary float-right" onclick="location.href='/blog/create/'">New Post</button>
+	{% for p in object_list %}
+	<h3>{{ p.title }}</h3>
+	{% if head_image %}
+	    <img src="{{ p.head_image.url }}">
+	{% endif %}
+	<h4>{{ p.created }} by {{ p.author }}</h4>
+	<h5>{{ p.content }}</h5>
+	<a href="{{ p.get_absolute_url }}" class="btn btn-primary">  Read More &rarr;</a>
+	{% endfor %}
+	{% if object.category %}
+	<span class="badge badge-primary float-right">{{ object.category }}</span>
+	{% else %}
+	<span class="badge badge-primary float-right">미분류</span>
+	{% endif %}
+
+	{% for tag in object.tags.all %}
+	<a href="{{ tag.get_absolute_url }}">#{{tag}}</a>
+	{% endfor %}
+</div>
+<!-- challenge certification widget -->
+  <div class="side_bar">
+  	<br>
+    <h3 style="text-align: center;">목표 달성률</h3>
+    <br>
+      <div class="card-body">
+      <h4 class="card-title"> 그룹 평균</h4>
+      <progress value="{{ group_rates }}" max="100"></progress>
+      </div>
+      {% for user, rate in achieve_rates.items %}
+        {% if user.id != user.is_superuser %} <!-- 관리자는 보이지 않음 -->
+          {% if request.user.id == user.id %} <!-- 현재 로그인한 유저라면 (색상 이사람만 다르게 하면 좋을듯) -->
+                <div class="card-body"><br>
+                <h4 class="card-title">{{ user.get_username }}</h4>
+                <progress value="{{ rate }}" max="100"></progress>
+                </div>
+          {% else %}
+            <!-- 현재 로그인한 유저가 아니라면 -->
+                <div class="card-body"><br>
+                <h4 class="card-title">{{ user.get_username }}</h4>
+                <progress value="{{ rate }}" max="100"></progress>
+                </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+  </div>
+<!-- //challenge certification widget -->
+</body>
+</html>

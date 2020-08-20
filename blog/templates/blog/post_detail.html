@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ blog_post.title }}</title>
+    <style>
+        body{background-color: #F7F8FA}
+        .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:15%; right:10%; border-radius:10px;}
+    </style>
 </head>
 <body>
 {% if request.user == object.author%}
@@ -12,8 +16,8 @@
 {% endif %}
 
 
-<h1>{{ object.title }}</h1>
-<div>
+<h1 style="text-align: center">{{ object.title }}</h1>
+<div style="text-align: center">
     {{ object.content }}
     {% if object.category %}
     <span class="badge badge-primary float-right">{{ object.category }}</span>
@@ -28,7 +32,7 @@
 </div>
 
 <!-- Comments Form -->
-<div class="card my-4">
+<div class="card my-4" style="text-align: center">
     <h5 class="card-header">Leave a Comment:</h5>
     <div class="card-body">
         <form method="post" action="{{ object.get_absolute_url }}new_comment/">{% csrf_token %}
@@ -41,7 +45,7 @@
 </div>
 
 <!-- Single Comment -->
-<div id="comment-list">
+<div id="comment-list" style="text-align: center">
     {% for comment in object.comment_set.all %}
     <div class="media mb-4" id="comment-id-{{ comment.pk }}">
         <div class="media-body">
@@ -56,6 +60,31 @@
     {% endfor %}
 </div>
 
+<!-- challenge certification widget -->
+  <div class="side_bar">
+    <h3>목표 달성률</h3>
+      <div class="card-body">
+      <h4 class="card-title"> 그룹 평균</h4>
+      <progress value="{{ group_rates }}" max="100"></progress>
+      </div>
+      {% for user, rate in achieve_rates.items %}
+        {% if user.id != user.is_superuser %} <!-- 관리자는 보이지 않음 -->
+          {% if request.user.id == user.id %} <!-- 현재 로그인한 유저라면 (색상 이사람만 다르게 하면 좋을듯) -->
+                <div class="card-body">
+                <h4 class="card-title">{{ user.get_username }}</h4>
+                <progress value="{{ rate }}" max="100"></progress>
+                </div>
+          {% else %}
+            <!-- 현재 로그인한 유저가 아니라면 -->
+                <div class="card-body">
+                <h4 class="card-title">{{ user.get_username }}</h4>
+                <progress value="{{ rate }}" max="100"></progress>
+                </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+  </div>
+<!-- //challenge certification widget -->
 
 </body>
 </html>

@@ -1,19 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 	<meta charset="UTF-8">
-	<title>
-	</title>
+	<title>회원정보관리탭	</title>
+	<style>
+		body{background-color: #F7F8FA}
+		a{text-decoration: none; color:#000000;}
+		*{margin: 0; padding: 0;}
+		li{font-size: 15pt;}
+
+		.wrapper{width:100%; margin:0 auto; background-color: white;padding: 20px;}
+		.clearfix{content: ''; display: block; clear: both;}
+
+		header{height:80px; background color:#eee; border: 1px; position: fixed; width: 100%; }
+		.menu li{color: black; padding:5px 60px 0px 0px;}
+		ul {text-align: center; list-style: none;}
+		
+	</style>
 </head>
 <body>
+<header>
+	<div class="wrapper">
+		<nav>
+			<ul class="menu">
+				<li  style="display:inline-block;"><a href="{% url 'blog:main' %}">Home</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:QnA' %}">About</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:mypage' %}">User</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:logout' %}">Logout</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
 <hr>
 <ul>
 	<li><a href="#">회원정보관리</a>
-		<ul>
-			<li><a href="#">정보 수정하기</a></li>
-			<li><a href="#">내가 가입한 그룹 보기</a></li>
-			<li><a href="#">취소 및 탈퇴하기</a></li>
+		<ul class="user" style="padding: 70px">
+			<li><a href="{% url 'blog:update' %}">회원정보 수정</a></li>
+			<li><a href="{% url 'blog:mychallenge' %}">목표달성률 보기</a></li>
+			<li><a href="{% url 'blog:giveup' %}">목표 취소하기</a></li>
+			<li><a href="{% url 'blog:delete' %}">탈퇴하기</a></li>
 		</ul>
 	</li>
+</ul>
+
 </body>
 </html>

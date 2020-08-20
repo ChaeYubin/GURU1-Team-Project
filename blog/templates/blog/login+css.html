@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <style>
+            input{height: 30px; width:300px; text-align: center;}
+
+            body{background-color: #F7F8FA}
+            #login, #join{
+                display:flex;
+                flex-direction: column
+            }
+
+        body{background-color: #F7F8FA}
+        a{text-decoration: none; color:#000000;}
+        *{margin: 0; padding: 0;}
+        li{font-size: 15pt;}
+
+        .wrapper{width:100%; margin:0 auto; background-color: white;padding: 20px;}
+        .clearfix{content: ''; display: block; clear: both;}
+
+        header{height:80px; background color:#eee; border: 1px; position: fixed; width: 100%; }
+        .menu li{color: black; padding:5px 60px 0px 0px;}
+        ul{text-align: center; list-style: none;}
+
+            .vl {
+                  border-left: 2px solid black;
+                  height: 600px;
+                  position: absolute;
+                  left: 50%;
+                  margin-left: -3px;
+                  top: 200px;
+                }
+        </style>
+</head>
+<body>
+{% if user.is_authenticated %}
+<header>
+	<div class="wrapper">
+		<nav>
+			<ul class="menu">
+				<li  style="display:inline-block;"><a href="{% url 'blog:main' %}">Home</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:QnA' %}">About</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:mypage' %}">User</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:logout' %}">Logout</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+{% else %}
+<header>
+	<div class="wrapper">
+		<nav>
+			<ul class="menu">
+				<li  style="display:inline-block;"><a href="{% url 'blog:main' %}">Home</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:QnA' %}">About</a></li>
+				<li  style="display:inline-block;"><a href="#">User</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:login' %}">Login</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+<form method="POST" action="">
+    {% csrf_token %}
+    <div class="vl"></div>
+    <table width="100%" style=" border: none; text-align: center;">
+        <tr>
+            <td colspan="1" style=";padding:150px;"></td>
+        </tr>
+        <tr>
+            <td class="login" style="width:900px;">
+                <h2>로그인</h2>
+
+                <p style=" width:100%;text-align: center;">
+                    <br>
+                    <input name="username" type="text" placeholder="ID"
+                           style="text-align: center; ">
+                    <br><br>
+                    <input name="password" type="password" placeholder="PW"
+                           style="text-align: center;">
+                    <br><br>
+                    <input class="btn btn-primary" type="submit" value="로그인">
+
+
+
+            </td>
+            <td class="join" style="width:1000px">
+                <h2>회원가입</h2>
+
+                <p style=" width:50%; text-align: center; ">
+                    <br>
+                <form method="POST" action="">
+
+                    <br><br>
+                <h2><input type="button" value="회원가입" onclick="location.href='signup'" ></h2>
+
+
+                </form>
+                </p>
+            </td>
+
+        </tr>
+    </table>
+</form>
+{% endif %}
+</body>
+</html>

@@ -18,8 +18,11 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
+            return render(request, "blog/post_list.html")
+        else:
+            messagebox.showinfo("warning", "ID 또는 비밀번호가 올바르지 않습니다.")
 
-    return render(request, "blog/login.html")
+    return render(request, "blog/login+css.html")
 
 
 def logout_view(request):
@@ -44,11 +47,11 @@ def signup_view(request):
             return redirect("blog:login")
         else:
             messagebox.showinfo("warning", "패스워드가 서로 다릅니다.")
-    return render(request, "blog/signup.html")
+    return render(request, "blog/signup+css.html")
 
 
 @login_required
-def update(request):
+def update_user(request):
     if request.method == 'POST':
         user_change_form = CustomUserChangeForm(request.POST, instance=request.user)
         if user_change_form.is_valid():
@@ -57,7 +60,13 @@ def update(request):
 
     else:
         user_change_form = CustomUserChangeForm(instance=request.user)
-    return render(request, 'blog/update.html', {'user_change_form': user_change_form})
+        model = Post
+        users = User.objects.all()
+        achieve_rates = {}
+        for user in users:
+            achieve_rates[user] = Post.objects.filter(category=1, author=user).count() * 10
+        user_rates = achieve_rates[request.user]
+    return render(request, 'blog/manage.html', {'user_change_form': user_change_form})
 
 
 @login_required
@@ -65,7 +74,7 @@ def delete(request):
     if request.method == 'POST':
         request.user.delete()
         return redirect('blog:login')
-    return render(request, 'blog/delete.html')
+    return render(request, 'blog/탈퇴.html')
 
 
 @login_required
@@ -86,15 +95,8 @@ def password(request):
 
 def MainPage(request):
     model = Post
-
     tags = Tag.objects.all()
-    return render(
-        request,
-        'blog/main_page.html',
-        {
-            'tags':tags,
-        }
-    )
+    return render(request, 'blog/post_list.html', {'tags': tags, })
 
 
 def delete_post(request, pk):
@@ -109,6 +111,7 @@ def delete_post(request, pk):
 
 class PostList(ListView):
     model = Post
+    paginate_by = 5
 
     # 역순만들기
     def get_queryset(self):
@@ -116,8 +119,18 @@ class PostList(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PostList, self).get_context_data(**kwargs)
+        users = User.objects.all()
+        achieve_rates = {}
+        group_rates = 0
+        for user in users:
+            achieve_rates[user] = Post.objects.filter(category=1, author=user).count() * 10
+            group_rates += achieve_rates[user]
+        group_rates //= len(achieve_rates)
         context['category_list'] = Category.objects.all()
         context['posts_without_category'] = Post.objects.filter(category=None).count()
+        context['users'] = users
+        context['achieve_rates'] = achieve_rates
+        context['group_rates'] = group_rates
 
         return context
 
@@ -144,9 +157,20 @@ class PostDetail(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PostDetail, self).get_context_data(**kwargs)
+        users = User.objects.all()
+        achieve_rates = {}
+        group_rates = 0
+        for user in users:
+            achieve_rates[user] = Post.objects.filter(category=1, author=user).count() * 10
+            group_rates += achieve_rates[user]
+        group_rates //= len(achieve_rates)
+
         context['category_list'] = Category.objects.all()
         context['posts_without_category'] = Post.objects.filter(category=None).count()
         context['comment_form'] = CommentForm()
+        context['users'] = users
+        context['achieve_rates'] = achieve_rates
+        context['group_rates'] = group_rates
 
         return context
 
@@ -164,7 +188,6 @@ class PostCreate(LoginRequiredMixin, CreateView):
             return super(type(self), self).form_valid(form)
         else:
             return redirect('/blog/')
-
 
 
 class PostUpdate(UpdateView):
@@ -241,8 +264,14 @@ class CommentUpdate(UpdateView):
 
 def user_info(request):
     users = User.objects.all()
-    context = {'users': users}
-    return render(request, 'blog/side_bar.html', context)
+    achieve_rates = {}
+
+    for user in users:
+        achieve_rates[user] = Post.objects.filter(category=1, author=user).count() * 10
+
+    context = {'users': users, 'achieve_rates': achieve_rates}
+
+    return render(request, 'blog/post_list.html', context)
 
 
 def question(request):
@@ -308,3 +337,19 @@ class AnswerUpdate(UpdateView):
         if answer.author != self.request.user:
             raise PermissionError('Comment 수정 권한이 없습니다.')
         return answer
+
+def mypage(request):
+    return render(request, "blog/회원관리페이지메뉴.html")
+
+
+def mychallenge_view(request):
+    users = User.objects.all()
+    achieve_rates = {}
+    for user in users:
+        achieve_rates[user] = Post.objects.filter(category=1, author=user).count() * 10
+    user_rates = achieve_rates[request.user]
+    return render(request, 'blog/mychallenge.html', {'achieve_rates': achieve_rates,'user_rates': user_rates})
+
+def giveup(request):
+    return render(request, 'blog/목표 그만두기.html')
+
