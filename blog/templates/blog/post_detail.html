@@ -1,23 +1,44 @@
 <!DOCTYPE html>
-{% load crispy_forms_tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{{ blog_post.title }}</title>
     <style>
+    	a{text-decoration: none; color:#000000;}
+		*{margin: 0; padding: 0;}
+		li{font-size: 15pt;}
+
+		.wrapper{width:100%; margin:0 auto; background-color: white;padding: 20px;}
+		.clearfix{content: ''; display: block; clear: both;}
+
+		header{height:80px; background color:#eee; border: 1px; position: fixed; width: 100%; }
+		.menu li{color: black; padding:5px 60px 0px 0px;}
+		ul{text-align: center; list-style: none;}
+		
         body{background-color: #F7F8FA}
         .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:15%; right:10%; border-radius:10px;}
     </style>
 </head>
 <body>
-{% if request.user == object.author%}
-<button type="button" class="btn btn-sm btn-outline-secondary float-right" onclick="location.href='{{ object.get_update_url }}'">수정</button>
-<button type="button" class="btn btn-sm btn-outline-secondary float-right" onclick="location.href='{{ object.get_delete_url }}'">삭제</button>
-{% endif %}
+	<header>
+		<div class="wrapper">
+			<nav>
+				<ul class="menu">
+					<li  style="display:inline-block;"><a href="mainpage+css.html">Home</a></li>
+					<li  style="display:inline-block;"><a href="#">About</a></li>
+					<li  style="display:inline-block;"><a href="#">Q&A</a></li>
+					<li  style="display:inline-block;"><a href="user_login+css.html">User</a></li>
+					<li  style="display:inline-block;"><a href="login+css.html">Login</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
 
-
-<h1 style="text-align: center">{{ object.title }}</h1>
-<div style="text-align: center">
+<h1 style="padding-left: 380px; padding-top: 100px;">{{ object.title }}</h1>
+<div style="padding-left: 380px">
+	<br>
+	<button type="button" class="btn btn-sm btn-outline-secondary float-right" onclick="location.href='{{ object.get_update_url }}'">수정</button>{% load crispy_forms_tags %}
+	<br><br>
     {{ object.content }}
     {% if object.category %}
     <span class="badge badge-primary float-right">{{ object.category }}</span>
@@ -32,20 +53,22 @@
 </div>
 
 <!-- Comments Form -->
-<div class="card my-4" style="text-align: center">
+<div style="padding-left: 380px" class="card my-4" >
     <h5 class="card-header">Leave a Comment:</h5>
     <div class="card-body">
         <form method="post" action="{{ object.get_absolute_url }}new_comment/">{% csrf_token %}
             <div class="form-group">
                 {{ comment_form | crispy }}
             </div>
+            <br>
             <button type="submit" class="btn btn-primary" onclick="location.href='{{ object.get_update_url }}'">Submit</button>
         </form>
     </div>
 </div>
 
 <!-- Single Comment -->
-<div id="comment-list" style="text-align: center">
+<div style="padding-left: 380px" id="comment-list">
+	<br>
     {% for comment in object.comment_set.all %}
     <div class="media mb-4" id="comment-id-{{ comment.pk }}">
         <div class="media-body">
@@ -57,7 +80,8 @@
             {{ comment.get_markdown_content | safe }}
         </div>
     </div>
-    {% endfor %}
+    <br>{% endfor %}
+
 </div>
 
 <!-- challenge certification widget -->
