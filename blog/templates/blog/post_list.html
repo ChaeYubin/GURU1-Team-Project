@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title> 00그룹 </title>
+    <style>
+        .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:15%; right:10%; border-radius:10px}
+    </style>
 </head>
 <body>
 <h1>그룹명  </h1>
@@ -13,8 +16,8 @@
 {% if head_image %}
     <img src="{{ p.head_image.url }}">
 {% endif %}
-<h3>{{ p.created }} by {{ p.author }}</h3>
-<h3>{{ p.content }}</h3>
+<h4>{{ p.created }} by {{ p.author }}</h4>
+<h5>{{ p.content }}</h5>
 <a href="{{ p.get_absolute_url }}" class="btn btn-primary">  Read More &rarr;</a>
 {% endfor %}
 {% if object.category %}
@@ -27,5 +30,30 @@
 <a href="{{ tag.get_absolute_url }}">#{{tag}}</a>
 {% endfor %}
 
+<!-- challenge certification widget -->
+  <div class="side_bar">
+    <h3>목표 달성률</h3>
+      <div class="card-body">
+      <h4 class="card-title"> 그룹 평균</h4>
+      <progress value="{{ group_rates }}" max="100"></progress>
+      </div>
+      {% for user, rate in achieve_rates.items %}
+        {% if user.id != user.is_superuser %} <!-- 관리자는 보이지 않음 -->
+          {% if request.user.id == user.id %} <!-- 현재 로그인한 유저라면 (색상 이사람만 다르게 하면 좋을듯) -->
+                <div class="card-body">
+                <h4 class="card-title">{{ user.get_username }}</h4>
+                <progress value="{{ rate }}" max="100"></progress>
+                </div>
+          {% else %}
+            <!-- 현재 로그인한 유저가 아니라면 -->
+                <div class="card-body">
+                <h4 class="card-title">{{ user.get_username }}</h4>
+                <progress value="{{ rate }}" max="100"></progress>
+                </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+  </div>
+<!-- //challenge certification widget -->
 </body>
 </html>
