@@ -86,66 +86,59 @@
 		margin: 8px o;
 	}
 	</style>
-	<body>
-	<header>
+<body>
+<header>
 
 	<div class="wrapper">
-
 		<nav>
-
 			<ul class="menu">
-
 				<li  style="display:inline-block;"><a href="{% url 'blog:main' %}">Home</a></li>
-
-				<li  style="display:inline-block;"><a href="{% url 'blog:QnA' %}">About</a></li>
-				<li  style="display:inline-block;"><a href="#">Q&A</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:AboutUs' %}">About</a></li>
+                		<li  style="display:inline-block;"><a href="{% url 'blog:QnA' %}">Q&A</a></li>
 				<li  style="display:inline-block;"><a href="{% url 'blog:mypage' %}">User</a></li>
-
 				<li  style="display:inline-block;"><a href="{% url 'blog:logout' %}">Logout</a></li>
-
 			</ul>
-
 		</nav>
-
 	</div>
-<!--UI Object -->
-<div class="faq">
-	<div class="hgroup">
-		<h2>문의게시판</h2>
-		<button type="button" class="trigger"><span>글쓰기</span></button>
+
+	<!--UI Object -->
+	<div class="faq">
+		<div class="hgroup">
+			<h2>문의게시판</h2>
+			<button type="button" class="trigger"><span>글쓰기</span></button>
+		</div>
+		<dl class="faq_list">
+			<dt><a href="#a1">Q:질문과 답변 목록은 어떻게?</a></dt>
+			<dd id="a1">
+				<p>A:질문과 답변은 문의게시판에서 하시면 됩니다.</p>
+			</dd>
+
+			<dt class="active"><a href="#a2">Q:개인정보 수정은 어떻게??</a></dt>
+			<dd id="a2" class="active"><p>A:개인정보 수정 클릭.</p>
+
+			</dd>
+
+			<dt><a href="#a3">Q:포스팅된 글은??</a></dt>
+			<dd id="a3">
+				<p>A:포스팅된 글은.</p>
+			</dd>
+		</dl>
+		<ul>
+			<li class="article hide">
+				<p class="q"></p>
+				<p class="a">
+			</li>
+			<li class="article hide">
+				<p class="q"></p>
+				<p class="a">
+			</li>
+			<li class="article hide">
+				<p class="q"></p>
+				<p class="a">
+			</li>
+		</ul>
+		</head>
 	</div>
-	<dl class="faq_list">
-		<dt><a href="#a1">Q:질문과 답변 목록은 어떻게?</a></dt>
-		<dd id="a1">
-			<p>A:질문과 답변은 문의게시판에서 하시면 됩니다.</p>
-		</dd>
-
-		<dt class="active"><a href="#a2">Q:개인정보 수정은 어떻게??</a></dt>
-		<dd id="a2" class="active"><p>A:개인정보 수정 클릭.</p>
-
-		</dd>
-
-		<dt><a href="#a3">Q:포스팅된 글은??</a></dt>
-		<dd id="a3">
-			<p>A:포스팅된 글은.</p>
-		</dd>
-	</dl>
-	<ul>
-	<li class="article hide">
-		<p class="q"></p>
-		<p class="a">
-	</li>
-	<li class="article hide">
-		<p class="q"></p>
-		<p class="a">
-	</li>
-	<li class="article hide">
-		<p class="q"></p>
-		<p class="a">
-	</li>
-	</ul>
-</head>
-
 </header>
 </body>
 </html>

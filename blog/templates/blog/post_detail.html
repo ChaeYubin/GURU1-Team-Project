@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>{{ blog_post.title }}</title>
-    <style>
+	<meta charset="UTF-8">
+	<title>{{ blog_post.title }}</title>
+	<style>
     	body{background-color: #F7F8FA}
     	a{text-decoration: none; color:#000000;}
 	*{margin: 0; padding: 0;}
@@ -19,19 +19,19 @@
     </style>
 </head>
 <body>
-	<header>
-		<div class="wrapper">
-			<nav>
-				<ul class="menu">
-					<li  style="display:inline-block;"><a href="{% url 'blog:main' %}">Home</a></li>
-					<li  style="display:inline-block;"><a href="{% url 'blog:QnA' %}">About</a></li>
-					<li  style="display:inline-block;"><a href="#">Q&A</a></li>
-					<li  style="display:inline-block;"><a href="{% url 'blog:mypage' %}">User</a></li>
-					<li  style="display:inline-block;"><a href="{% url 'blog:logout' %}">Logout</a></li>
-				</ul>
-			</nav>
-		</div>
-	</header>
+<header>
+	<div class="wrapper">
+		<nav>
+			<ul class="menu">
+				<li  style="display:inline-block;"><a href="{% url 'blog:main' %}">Home</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:AboutUs' %}">About</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:QnA' %}">Q&A</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:mypage' %}">User</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:logout' %}">Logout</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
 
 <div class="group">
 	<h1 >{{ object.title }}</h1>
@@ -39,80 +39,80 @@
 		<br>
 		<button type="button" class="btn btn-sm btn-outline-secondary float-right" onclick="location.href='{{ object.get_update_url }}'">수정</button>{% load crispy_forms_tags %}
 		<br><br>
-	    {{ object.content }}
-	    {% if object.category %}
-	    <span class="badge badge-primary float-right">{{ object.category }}</span>
-	    {% else %}
-	    <span class="badge badge-primary float-right">미분류</span>
-	    {% endif %}
+		{{ object.content }}
+		{% if object.category %}
+		<span class="badge badge-primary float-right">{{ object.category }}</span>
+		{% else %}
+		<span class="badge badge-primary float-right">미분류</span>
+		{% endif %}
 
-	    {{ object.content }}
-	    {% for tag in object.tags.all %}
-	    <a href="{{ tag.get_absolute_url }}">#{{tag}}</a>
-	    {% endfor %}
+		{{ object.content }}
+		{% for tag in object.tags.all %}
+		<a href="{{ tag.get_absolute_url }}">#{{tag}}</a>
+		{% endfor %}
 	</div>
 
 	<!-- Comments Form -->
 	<div  class="card my-4" >
 		<br>
-	    <h5 class="card-header">Leave a Comment:</h5>
-	    <div class="card-body">
-	        <form method="post" action="{{ object.get_absolute_url }}new_comment/">{% csrf_token %}
-	            <div class="form-group">
-	                {{ comment_form | crispy }}
-	            </div>
-	            <br>
-	            <button type="submit" class="btn btn-primary" onclick="location.href='{{ object.get_update_url }}'">Submit</button>
-	        </form>
-	    </div>
+		<h5 class="card-header">Leave a Comment:</h5>
+		<div class="card-body">
+			<form method="post" action="{{ object.get_absolute_url }}new_comment/">{% csrf_token %}
+				<div class="form-group">
+					{{ comment_form | crispy }}
+				</div>
+				<br>
+				<button type="submit" class="btn btn-primary" onclick="location.href='{{ object.get_update_url }}'">Submit</button>
+			</form>
+		</div>
 	</div>
 
 	<!-- Single Comment -->
 	<div  id="comment-list">
 		<br>
-	    {% for comment in object.comment_set.all %}
-	    <div class="media mb-4" id="comment-id-{{ comment.pk }}">
-	        <div class="media-body">
-	            {% if comment.author == request.user %}
-	            <button onclick="location.href='/blog/delete_comment/{{ comment.pk }}/'">delete</button>
-	            <button onclick="location.href='/blog/edit_comment/{{ comment.pk }}/'">edit</button>
-	            {% endif %}
-	            <h5 class="mt-0">{{ comment.author }} <small class="text-muted">{{ comment.created_at }}</small></h5>
-	            {{ comment.get_markdown_content | safe }}
-	        </div>
-	    </div>
-	    <br>{% endfor %}
+		{% for comment in object.comment_set.all %}
+		<div class="media mb-4" id="comment-id-{{ comment.pk }}">
+			<div class="media-body">
+				{% if comment.author == request.user %}
+				<button onclick="location.href='/blog/delete_comment/{{ comment.pk }}/'">delete</button>
+				<button onclick="location.href='/blog/edit_comment/{{ comment.pk }}/'">edit</button>
+				{% endif %}
+				<h5 class="mt-0">{{ comment.author }} <small class="text-muted">{{ comment.created_at }}</small></h5>
+				{{ comment.get_markdown_content | safe }}
+			</div>
+		</div>
+		<br>{% endfor %}
 
 	</div>
 </div>
 <!-- challenge certification widget -->
-  <div class="side_bar">
-  	<br>
-    <h3 style="text-align: center">목표 달성률</h3>
-      <div class="card-body">
-      <br>
-      <h4 class="card-title"> 그룹 평균</h4>
-      <progress value="{{ group_rates }}" max="100"></progress>
-      </div>
-      {% for user, rate in achieve_rates.items %}
-        {% if user.id != user.is_superuser %} <!-- 관리자는 보이지 않음 -->
-          {% if request.user.id == user.id %} <!-- 현재 로그인한 유저라면 (색상 이사람만 다르게 하면 좋을듯) -->
-                <div class="card-body">
-                <br>
-                <h4 class="card-title">{{ user.get_username }}</h4>
-                <progress value="{{ rate }}" max="100"></progress>
-                </div>
-          {% else %}
-            <!-- 현재 로그인한 유저가 아니라면 -->
-                <div class="card-body">
-                <br>
-                <h4 class="card-title">{{ user.get_username }}</h4>
-                <progress value="{{ rate }}" max="100"></progress>
-                </div>
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-  </div>
+<div class="side_bar">
+	<br>
+	<h3 style="text-align: center">목표 달성률</h3>
+	<div class="card-body">
+		<br>
+		<h4 class="card-title"> 그룹 평균</h4>
+		<progress value="{{ group_rates }}" max="100"></progress>
+	</div>
+	{% for user, rate in achieve_rates.items %}
+	{% if user.id != user.is_superuser %} <!-- 관리자는 보이지 않음 -->
+	{% if request.user.id == user.id %} <!-- 현재 로그인한 유저라면 (색상 이사람만 다르게 하면 좋을듯) -->
+	<div class="card-body">
+		<br>
+		<h4 class="card-title">{{ user.get_username }}</h4>
+		<progress value="{{ rate }}" max="100"></progress>
+	</div>
+	{% else %}
+	<!-- 현재 로그인한 유저가 아니라면 -->
+	<div class="card-body">
+		<br>
+		<h4 class="card-title">{{ user.get_username }}</h4>
+		<progress value="{{ rate }}" max="100"></progress>
+	</div>
+	{% endif %}
+	{% endif %}
+	{% endfor %}
+</div>
 <!-- //challenge certification widget -->
 
 </body>

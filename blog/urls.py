@@ -41,9 +41,10 @@ urlpatterns = [
     path('QnA/<int:pk>/new_comment/', views.answer),
     path('main/', views.MainPage, name='main'),
     path('update', views.update_user, name='update'),
-    path('delete', views.delete, name='delete'),
+    path('delete', views.delete_user, name='delete'),
     path('password/', views.password, name='password'),
     path('mypage', views.mypage, name='mypage'),
     path('mychallenge', views.mychallenge_view, name='mychallenge'),
     path('giveup', views.giveup, name='giveup'),
+    path('AboutUs', views.aboutus, name='AboutUs'),
 ]

@@ -9,6 +9,7 @@ from django.utils import timezone
 from tkinter import messagebox
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import check_password
 
 
 def login_view(request):
@@ -70,10 +71,15 @@ def update_user(request):
 
 
 @login_required
-def delete(request):
+def delete_user(request):
     if request.method == 'POST':
-        request.user.delete()
-        return redirect('blog:login')
+        password = request.POST.get('password')
+        user = request.user
+        if check_password(password, user.password):
+            request.user.delete()
+            return redirect('blog:login')
+        else:
+            messagebox.showinfo("warning", "비밀번호가 일치하지 않습니다.")
     return render(request, 'blog/탈퇴.html')
 
 
@@ -82,8 +88,6 @@ def password(request):
     if request.method == 'POST':
         password_change_form = PasswordChangeForm(request.user, request.POST)
 
-        # 키워드인자명을 함께 써줘도 가능
-        # password_change_form = PasswordChangeForm(user=request.user, data=request.POST)
         if password_change_form.is_valid():
             password_change_form.save()
             return redirect('blog:login', request.user.username)
@@ -352,4 +356,7 @@ def mychallenge_view(request):
 
 def giveup(request):
     return render(request, 'blog/목표 그만두기.html')
+
+def aboutus(request):
+    return render(request, ) #aboutus_page html 넣기
 
