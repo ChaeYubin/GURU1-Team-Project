@@ -18,8 +18,11 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
+            return render(request, "blog/mainpage+css.html")
+        else:
+            messagebox.showinfo("warning", "ID 또는 비밀번호가 올바르지 않습니다.")
 
-    return render(request, "blog/login.html")
+    return render(request, "blog/login+css.html")
 
 
 def logout_view(request):
@@ -44,7 +47,7 @@ def signup_view(request):
             return redirect("blog:login")
         else:
             messagebox.showinfo("warning", "패스워드가 서로 다릅니다.")
-    return render(request, "blog/signup.html")
+    return render(request, "blog/signup+css.html")
 
 
 @login_required
@@ -72,7 +75,7 @@ def delete(request):
     if request.method == 'POST':
         request.user.delete()
         return redirect('blog:login')
-    return render(request, 'blog/delete.html')
+    return render(request, 'blog/탈퇴.html')
 
 
 @login_required
@@ -93,15 +96,8 @@ def password(request):
 
 def MainPage(request):
     model = Post
-
     tags = Tag.objects.all()
-    return render(
-        request,
-        'blog/main_page.html',
-        {
-            'tags': tags,
-        }
-    )
+    return render(request, 'blog/mainpage+css.html', {'tags': tags, })
 
 
 class PostList(ListView):
@@ -332,4 +328,18 @@ class AnswerUpdate(UpdateView):
             raise PermissionError('Comment 수정 권한이 없습니다.')
         return answer
 
+def mypage(request):
+    return render(request, "blog/회원관리페이지메뉴.html")
+
+
+def mychallenge_view(request):
+    users = User.objects.all()
+    achieve_rates = {}
+    for user in users:
+        achieve_rates[user] = Post.objects.filter(category=1, author=user).count() * 10
+    user_rates = achieve_rates[request.user]
+    return render(request, 'blog/mychallenge.html', {'achieve_rates': achieve_rates,'user_rates': user_rates})
+
+def giveup(request):
+    return render(request, 'blog/목표 그만두기.html')
 
