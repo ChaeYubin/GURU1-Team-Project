@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% load crispy_forms_tags %}
+<html lang="en">
+<head>
+    <style>
+    	body{background-color: #F7F8FA}
+    	a{text-decoration: none; color:#000000;}
+		*{margin: 0; padding: 0;}
+		li{font-size: 15pt;}
+		.group{padding-top:150px; text-align:center}
+		.wrapper{width:100%; margin:0 auto; background-color: white;padding: 20px;}
+
+		header{height:80px; background color:#eee; border: 1px; position: fixed; width: 100%; }
+		.menu li{color: black; padding:5px 60px 0px 0px;}
+		ul{text-align: center; list-style: none;}
+		.content {line-height:1.7em}
+		strong {font-size: 1.1em}
+    </style>
+    <title>About</title>
+</head>
+<body>
+<header>
+	<div class="wrapper">
+		<nav>
+			<ul class="menu">
+				<li  style="display:inline-block;"><a href="{% url 'blog:main' %}">Home</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:about' %}">About</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:QnA' %}">Q&A</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:mypage' %}">User</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:logout' %}">Logout</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+
+<div class="group">
+    <h2>목표 달성 관리 사이트</h2>
+    <br><br>
+    <div class="content">
+    <p>목표가 있으신가요?</p>
+    <p>한 달에 책 한 권 읽기, 운동 매일 하기, ···</p>
+    <p>혼자 하려니 매번 다짐만 하게 되고, 실천하기 어렵지 않으신가요?</p>
+    <br>
+    <p><strong>같은 목표를 가진 사람들과 함께, 그 목표 이뤄봐요!</strong></p>
+    </div>
+</div>
+
+</body>
+</html>

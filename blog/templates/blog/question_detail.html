@@ -2,42 +2,81 @@
 {% load crispy_forms_tags %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>{{ blog_post.title }}</title>
+    <style>
+    	body{background-color: #F7F8FA}
+    	a{text-decoration: none; color:#000000;}
+		*{margin: 0; padding: 0;}
+		li{font-size: 15pt;}
+		.group{padding-top:100px; padding-left:20%}
+		.wrapper{width:100%; margin:0 auto; background-color: white;padding: 20px;}
+		.clearfix{content: ''; display: block; clear: both;}
+
+        hr{width:70%}
+		header{height:80px; background color:#eee; border: 1px; position: fixed; width: 100%; }
+		.menu li{color: black; padding:5px 60px 0px 0px;}
+		ul{text-align: center; list-style: none;}
+		.post_wrap{padding:20px; border:1px solid black; width:60%}
+		.post_info{font-size:0.8em; color:gray}
+		.category{color: orange}
+		.read_more{color: navy}
+        .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:19%; right:10%; border-radius:10px;}
+    </style>
+    <title>QnA - {{ object.title }}</title>
 </head>
 <body>
+<header>
+	<div class="wrapper">
+		<nav>
+			<ul class="menu">
+				<li  style="display:inline-block;"><a href="{% url 'blog:main' %}">Home</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:QnA' %}">About</a></li>
+				<li  style="display:inline-block;"><a href="#">Q&A</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:mypage' %}">User</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:logout' %}">Logout</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+
+<div class="group">
     <h1>{{ object.title }}</h1>
-    <div>
-        {{ object.get_markdown_content | safe }}
-    </div>
-
-{% if request.user.is_superuser %}
-<!-- Comments Form -->
-<div class="card my-4">
-    <h5 class="card-header">답변</h5>
-    <div class="card-body">
-        <form method="post" action="{{ object.get_absolute_url }}new_comment/">{% csrf_token %}
-            <div class="form-group">
-                {{ answer_form | crispy }}
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-</div>
-{% endif %}
-
-<!-- Single Comment -->
-<div id="comment-list">
-    {% for answer in object.answer_set.all %}
-    <div class="media mb-4" id="comment-id-{{ comment.pk }}">
-        <div class="media-body">
-            <h5 class="mt-0">관리자 <small class="text-muted">{{ answer.created_at }}</small></h5>
-            {{ answer.get_markdown_content | safe }}
+    <br>
+    <div class="content">
+        <div>
+            {{ object.content | safe }}
         </div>
     </div>
-    {% endfor %}
-</div>
+    <br>
+    <hr>
+    <br>
+    {% if request.user.is_superuser %}
+    <!-- Comments Form -->
+    <div>
+        <h5>답변</h5>
+        <div>
+            <form method="post" action="{{ object.get_absolute_url }}new_comment/">{% csrf_token %}
+                <div class="form-group">
+                    {{ answer_form | crispy }}
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    {% endif %}
 
+    <!-- Single Comment -->
+    <div id="comment-list">
+        {% for answer in object.answer_set.all %}
+        <div id="comment-id-{{ comment.pk }}">
+            <div>
+                <h5>관리자 <small>{{ answer.created_at }}</small></h5>
+                {{ answer.get_markdown_content | safe }}
+                <br>
+            </div>
+        </div>
+        {% endfor %}
+</div>
+</div>
 
 </body>
 </html>

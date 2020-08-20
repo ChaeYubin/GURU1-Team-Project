@@ -17,14 +17,14 @@
       {% for user, rate in achieve_rates.items %}
         {% if user.id != user.is_superuser %} <!-- 관리자는 보이지 않음 -->
           {% if request.user.id == user.id %} <!-- 현재 로그인한 유저라면 (색상 이사람만 다르게 하면 좋을듯) -->
-                <div class="card-body">
-                <h4 class="card-title">{{ user.get_username }}</h4>
+                <div>
+                <h4>{{ user.get_username }}</h4>
                 <progress value="{{ rate }}" max="100"></progress>
                 </div>
           {% else %}
             <!-- 현재 로그인한 유저가 아니라면 -->
-                <div class="card-body">
-                <h4 class="card-title">{{ user.get_username }}</h4>
+                <div>
+                <h4 >{{ user.get_username }}</h4>
                 <progress value="{{ rate }}" max="100"></progress>
                 </div>
           {% endif %}
