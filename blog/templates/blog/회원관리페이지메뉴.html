@@ -20,26 +20,27 @@
 	</style>
 </head>
 <body>
-	<header>
-		<div class="wrapper">
-			<nav>
-				<ul class="menu">
-					<li  style="display:inline-block;"><a href="mainpage+css.html">Home</a></li>
-					<li  style="display:inline-block;"><a href="#">About</a></li>
-					<li  style="display:inline-block;"><a href="user_login+css.html">User</a></li>
-					<li  style="display:inline-block;"><a href="login+css.html">Login</a></li>
-				</ul>
-			</nav>
-		</div>
-	</header>
+<header>
+	<div class="wrapper">
+		<nav>
+			<ul class="menu">
+				<li  style="display:inline-block;"><a href="{% url 'blog:main' %}">Home</a></li>
+				<li  style="display:inline-block;"><a href="{blog:'QnA'}">About</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:mypage' %}">User</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:logout' %}">Logout</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
 <hr>
 <ul>
 	<li><a href="#">회원정보관리</a>
 		<ul class="user" style="padding: 70px">
-			<li><a href="#">정보 수정하기</a></li>
+			<li><a href="update">정보 수정하기</a></li>
 			<li><a href="#">내가 가입한 그룹 보기</a></li>
-			<li><a href="#">취소 및 탈퇴하기</a></li>
+			<li><a href="delete_user">취소 및 탈퇴하기</a></li>
 		</ul>
 	</li>
+</ul>
 </body>
 </html>

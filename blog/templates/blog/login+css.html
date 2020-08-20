@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="ko">
 <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Login</title>
-        <style>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <style>
             input{height: 30px; width:300px; text-align: center;}
 
             body{background-color: #F7F8FA}
@@ -38,6 +38,23 @@
         </style>
 </head>
 <body>
+{% if user.is_authenticated %}
+return redirect("{% url 'blog:main' %}")
+{% else %}
+<form method="POST" action="">
+    {% csrf_token %}
+    <header>
+        <div class="wrapper">
+            <nav>
+                <ul class="menu">
+                    <li  style="display:inline-block;"><a href="main">Home</a></li>
+                    <li  style="display:inline-block;"><a href="QnA">About</a></li>
+                    <li  style="display:inline-block;"><a href="mypage">User</a></li>
+                    <li  style="display:inline-block;"><a href="login">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
     <div class="vl"></div>
     <table width="100%" style=" border: none; text-align: center;">
@@ -46,55 +63,39 @@
         </tr>
         <tr>
             <td class="login" style="width:900px;">
-               <h2>로그인</h2>
+                <h2>로그인</h2>
 
-               <p style=" width:100%;text-align: center;">
-                <br>
-                <input name="userID" type="text" placeholder="ID"
-                style="text-align: center; ">
-                <br><br>
-                <input name="password" type="password" placeholder="PW"
-                style="text-align: center;">
-                <br><br>
-                <input class="btn btn-primary" type="submit" value="로그인">
+                <p style=" width:100%;text-align: center;">
+                    <br>
+                    <input name="username" type="text" placeholder="ID"
+                           style="text-align: center; ">
+                    <br><br>
+                    <input name="password" type="password" placeholder="PW"
+                           style="text-align: center;">
+                    <br><br>
+                    <input class="btn btn-primary" type="submit" value="로그인">
 
- 
+
 
             </td>
             <td class="join" style="width:1000px">
                 <h2>회원가입</h2>
 
                 <p style=" width:50%; text-align: center; ">
-                <br>
+                    <br>
                 <form method="POST" action="">
-                
-                <br><br>
-                <input type="button" value="회원가입" onclick="location.href='signup+css.html'" >
+
+                    <br><br>
+                    <h2><input type="button" value="회원가입" onclick="location.href='signup'" ></h2>
 
 
                 </form>
-               </p>
+                </p>
             </td>
 
         </tr>
-    <header>
-        <div class="wrapper">
-            <nav>
-                <ul class="menu">
-                    <li  style="display:inline-block;"><a href="mainpage+css.html">Home</a></li>
-                    <li  style="display:inline-block;"><a href="#">About</a></li>
-                    <li  style="display:inline-block;"><a href="user_login+css.html">User</a></li>
-                    <li  style="display:inline-block;"><a href="login+css.html">Login</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    
-<hr>
-<a href="{% url 'blog:logout' %}">로그아웃</a>
-<a href="{% url 'blog:update' %}">회원정보수정</a>
-
-
+    </table>
+</form>
+{% endif %}
 </body>
 </html>

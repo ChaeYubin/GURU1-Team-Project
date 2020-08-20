@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="ko">
 <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Login</title>
-        <style>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <style>
             input{height: 30px; width:300px; text-align: center;}
 
             body{background-color: #F7F8FA}
@@ -30,50 +30,49 @@
         </style>
 </head>
 <body>
-    
-    <header>
-        <div class="wrapper">
-            <nav>
-                <ul class="menu">
-                    <li  style="display:inline-block;"><a href="mainpage+css.html">Home</a></li>
-                    <li  style="display:inline-block;"><a href="#">About</a></li>
-                    <li  style="display:inline-block;"><a href="user_login.html">User</a></li>
-                    <li  style="display:inline-block;"><a href="login+css.html">Login</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-    <div class="vl"></div>
-    <table width="100%" style=" border: none; text-align: center;">
-        <tr>
-            <td colspan="1" style=";padding:150px;"></td>
-        </tr>
-        <tr>
-            <td class="login" style="width:900px;">
-               <h2>로그인</h2>
+<header>
+	<div class="wrapper">
+		<nav>
+			<ul class="menu">
+				<li  style="display:inline-block;"><a href="{% url 'blog:main' %}">Home</a></li>
+				<li  style="display:inline-block;"><a href="{blog:'QnA'}">About</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:mypage' %}">User</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:login' %}">Login</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+<div class="vl"></div>
+<table width="100%" style=" border: none; text-align: center;">
+    <tr>
+        <td colspan="1" style=";padding:150px;"></td>
+    </tr>
+    <tr>
+        <td class="login" style="width:900px;">
+            <h2>로그인</h2>
 
-               <p style=" width:100%;text-align: center;">
+            <p style=" width:100%;text-align: center;">
                 <br>
                 <input name="userID" type="text" placeholder="ID"
-                style="text-align: center; ">
+                       style="text-align: center; ">
                 <br><br>
                 <input name="password" type="password" placeholder="PW"
-                style="text-align: center;">
+                       style="text-align: center;">
                 <br><br>
                 <input class="btn btn-primary" type="submit" value="로그인">
                 <br><br>
                 <a href="정보수정">회원정보 수정</a>
-               </p> 
-            </td>
-         </tr>
-         <div>
+            </p>
+        </td>
+    </tr>
+    <div>
     </div>
-    
 
-    
-<hr>
-<a href="{% url 'blog:logout' %}">로그아웃</a>
-<a href="{% url 'blog:update' %}">회원정보수정</a>
+
+
+    <hr>
+    <a href="{% url 'blog:logout' %}">로그아웃</a>
+    <a href="{% url 'blog:update' %}">회원정보수정</a>
 
 
 </body>
