@@ -17,6 +17,7 @@
 		ul{text-align: center; list-style: none;}
 		.post_wrap{padding:20px; border:1px solid black; width:60%}
 		.post_info{font-size:0.8em; color:gray}
+		.category{color: orange}
         .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:19%; right:10%; border-radius:10px;}
     </style>
 </head>
@@ -43,21 +44,22 @@
 
     <div class="post_wrap">
         <h3>{{ p.title }}</h3>
+
         <div class="post_info"><p>{{ p.created }} by {{ p.author }}</p></div>
+
+        {% if p.category %}
+        <span class="category">{{ p.category }}</span>
+        {% else %}
+        <span class="badge badge-primary float-right">미분류</span>
+        {% endif %}
         {% if head_image %}
             <img src="{{ p.head_image.url }}">
         {% endif %}
 
-        <h4>{{ p.content }}</h4>
-
-        {% if p.category %}
-        <span class="badge badge-primary float-right">{{ p.category }}</span>
-        {% else %}
-        <span class="badge badge-primary float-right">미분류</span>
-        {% endif %}
+        <h4>{{ p.content | truncatewords:50 }}</h4>
 
         {% for tag in object.tags.all %}
-        <a href="{{ tag.get_absolute_url }}">#{{tag}}</a>
+        <a href="{{ tag.get_absolute_url }}">#{{ tag }}</a>
         {% endfor %}
 
         <a href="{{ p.get_absolute_url }}" class="btn btn-primary">  Read More &rarr;</a>
