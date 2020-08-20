@@ -125,7 +125,7 @@ class PostList(ListView):
         for user in users:
             achieve_rates[user] = Post.objects.filter(category=1, author=user).count() * 10
             group_rates += achieve_rates[user]
-        group_rates //= len(achieve_rates)-1
+        group_rates //= len(achieve_rates)
         context['category_list'] = Category.objects.all()
         context['posts_without_category'] = Post.objects.filter(category=None).count()
         context['users'] = users
@@ -157,7 +157,7 @@ class PostDetail(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PostDetail, self).get_context_data(**kwargs)
-        users = User.objects.all()
+        users = User.objects.exclude(is_superuser=True)
         achieve_rates = {}
         group_rates = 0
         for user in users:
