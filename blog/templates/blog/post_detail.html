@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <title>{{ blog_post.title }}</title>
     <style>
-        .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:15%; right:10%; border-radius:10px}
+        body{background-color: #F7F8FA}
+        .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:15%; right:10%; border-radius:10px;}
     </style>
 </head>
 <body>
 <button type="button" class="btn btn-sm btn-outline-secondary float-right" onclick="location.href='{{ object.get_update_url }}'">수정</button>
 
-<h1>{{ object.title }}</h1>
-<div>
+<h1 style="text-align: center">{{ object.title }}</h1>
+<div style="text-align: center">
     {{ object.content }}
     {% if object.category %}
     <span class="badge badge-primary float-right">{{ object.category }}</span>
@@ -27,7 +28,7 @@
 </div>
 
 <!-- Comments Form -->
-<div class="card my-4">
+<div class="card my-4" style="text-align: center">
     <h5 class="card-header">Leave a Comment:</h5>
     <div class="card-body">
         <form method="post" action="{{ object.get_absolute_url }}new_comment/">{% csrf_token %}
@@ -40,7 +41,7 @@
 </div>
 
 <!-- Single Comment -->
-<div id="comment-list">
+<div id="comment-list" style="text-align: center">
     {% for comment in object.comment_set.all %}
     <div class="media mb-4" id="comment-id-{{ comment.pk }}">
         <div class="media-body">
