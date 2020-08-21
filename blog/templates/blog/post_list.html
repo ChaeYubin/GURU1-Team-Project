@@ -44,8 +44,8 @@
 	<br>
 	    <button style="height: 30px; width:100px;" class="btn btn-sm btn-primary float-right" onclick="location.href='/blog/create/'">New Post</button>
 	    <br><br>
-    	{% for p in object_list %}
 
+    {% for p in object_list %}
     <div class="post_wrap">
         <h3>{{ p.title }}</h3>
 
