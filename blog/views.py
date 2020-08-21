@@ -22,7 +22,7 @@ def login_view(request):
             return render(request, "blog/login+css.html")
         else:
             messagebox.showinfo("warning", "ID 또는 비밀번호가 올바르지 않습니다.")
-
+            return render(request, "blog/login+css.html")
     return render(request, "blog/login+css.html")
 
 
@@ -48,6 +48,7 @@ def signup_view(request):
             return redirect("blog:login")
         else:
             messagebox.showinfo("warning", "패스워드가 서로 다릅니다.")
+            return render(request, "blog/signup+css.html")
     return render(request, "blog/signup+css.html")
 
 
@@ -77,7 +78,7 @@ def delete_user(request):
         # user = request.user
         # if check_password(password, user.password):
             request.user.delete()
-            return redirect('blog:login')
+        #     return redirect('blog:login')
         # else:
         #     messagebox.showinfo("warning", "비밀번호가 일치하지 않습니다.")
         #     return redirect('blog:delete')
