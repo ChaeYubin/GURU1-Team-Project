@@ -78,7 +78,7 @@ def delete_user(request):
         # user = request.user
         # if check_password(password, user.password):
             request.user.delete()
-        #     return redirect('blog:login')
+            return redirect('blog:login')
         # else:
         #     messagebox.showinfo("warning", "비밀번호가 일치하지 않습니다.")
         #     return redirect('blog:delete')
