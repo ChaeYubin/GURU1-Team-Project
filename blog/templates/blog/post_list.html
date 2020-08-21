@@ -18,6 +18,7 @@
 		.post_wrap{padding:20px; border:1px solid black; width:60%}
 		.post_info{font-size:0.8em; color:gray}
 		.category{color: orange}
+		.image{margin-top:20px}
 		.read_more{color: navy}
 		.content{padding-top:20px; padding-bottom:20px}
         .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:19%; right:10%; border-radius:10px;}
@@ -55,11 +56,11 @@
         {% else %}
         <span class="category">미분류</span>
         {% endif %}
-
+        <div class="image">
         {% if p.head_image %}
-            <img src="{{ p.head_image }}">
+            <img src="{{ p.head_image.url }}">
         {% endif %}
-
+        </div>
         <div class="content">
             <h4>{{ p.content | truncatewords:50 }}</h4>
 
