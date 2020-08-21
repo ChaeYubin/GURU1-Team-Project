@@ -48,7 +48,7 @@
 		<br><br>
 		{% endif %}
 
-		<div class="post_info"><p>{{ object.created }} by {{ object.author }}</p></div>
+		<div class="post_info"><p>{{ object.created }} by {{ object.author.nickname }}</p></div>
 		<div class="category">
 		{% if object.category %}
 	    <span>{{ object.category }}</span>
@@ -95,7 +95,7 @@
 	            <button class="comment_button" onclick="location.href='/blog/delete_comment/{{ comment.pk }}/'">delete</button>
 	            <button class="comment_button" onclick="location.href='/blog/edit_comment/{{ comment.pk }}/'">edit</button>
 	            {% endif %}
-				<h5>{{ comment.author }} <small>{{ comment.created_at }}</small></h5>
+				<h5>{{ comment.author.nickname }} <small>{{ comment.created_at }}</small></h5>
 				{{ comment.get_markdown_content | safe }}
 	        </div>
 	    </div>
