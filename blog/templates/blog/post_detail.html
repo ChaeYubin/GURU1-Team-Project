@@ -15,6 +15,7 @@
 	header{height:80px; background color:#eee; border: 1px; position: fixed; width: 100%; }
 	.menu li{color: black; padding:5px 60px 0px 0px;}
 	ul{text-align: center; list-style: none;}
+	.comment_button{float:right; margin:2px 2px; padding:0px 2px}
     .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:15%; right:10%; border-radius:10px;}
     </style>
 </head>
@@ -38,6 +39,7 @@
 	<div class="content">
 		<br>
 		<button type="button" onclick="location.href='{{ object.get_update_url }}'">수정</button>{% load crispy_forms_tags %}
+		<button type="button" onclick="location.href='{{ object.get_update_url }}'">삭제</button>{% load crispy_forms_tags %}
 		<br><br>
 	    {{ object.content }}
 	    {% if object.category %}
@@ -45,7 +47,7 @@
 	    {% else %}
 	    <span>미분류</span>
 	    {% endif %}
-
+		<br>
 		{% for tag in object.tags.all %}
 		<a href="{{ tag.get_absolute_url }}">#{{tag}}</a>
 		{% endfor %}
@@ -72,12 +74,14 @@
 	    {% for comment in object.comment_set.all %}
 	    <div id="comment-id-{{ comment.pk }}">
 	        <div>
+				<hr>
+				<br>
 	            {% if comment.author == request.user %}
-	            <button onclick="location.href='/blog/delete_comment/{{ comment.pk }}/'">delete</button>
-	            <button onclick="location.href='/blog/edit_comment/{{ comment.pk }}/'">edit</button>
+	            <button class="comment_button" onclick="location.href='/blog/delete_comment/{{ comment.pk }}/'">delete</button>
+	            <button class="comment_button" onclick="location.href='/blog/edit_comment/{{ comment.pk }}/'">edit</button>
 	            {% endif %}
-	            <h5>{{ comment.author }} <small>{{ comment.created_at }}</small></h5>
-	            {{ comment.get_markdown_content | safe }}
+				<h5>{{ comment.author }} <small>{{ comment.created_at }}</small></h5>
+				{{ comment.get_markdown_content | safe }}
 	        </div>
 	    </div>
 	    <br>{% endfor %}
