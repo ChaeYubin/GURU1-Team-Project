@@ -56,11 +56,13 @@
         {% else %}
         <span class="category">미분류</span>
         {% endif %}
-        <div class="image">
+
         {% if p.head_image %}
-            <img src="{{ p.head_image.url }}">
+            <div class="image">
+                <img src="{{ p.head_image.url }}">
+            </div>
         {% endif %}
-        </div>
+
         <div class="content">
             <h4>{{ p.get_markdown_content | truncatewords:50 | safe }}</h4>
 
