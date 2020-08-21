@@ -39,6 +39,7 @@
 	<div class="content">
 		<br>
 		<button type="button" onclick="location.href='{{ object.get_update_url }}'">수정</button>{% load crispy_forms_tags %}
+		<button type="button" onclick="location.href='{{ object.get_update_url }}'">삭제</button>{% load crispy_forms_tags %}
 		<br><br>
 	    {{ object.content }}
 	    {% if object.category %}
