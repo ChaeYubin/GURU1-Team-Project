@@ -233,10 +233,10 @@ class PostListByCategory(ListView):
         group_rates //= len(achieve_rates)
         context['category_list'] = Category.objects.all()
         context['posts_without_category'] = Post.objects.filter(category=None).count()
+
         context['users'] = users
         context['achieve_rates'] = achieve_rates
         context['group_rates'] = group_rates
-
         slug = self.kwargs['slug']
 
         if slug == '_none':
