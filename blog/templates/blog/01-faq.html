@@ -74,23 +74,15 @@
 </head>
 <body>
 <div class="wrapper">
-
 		<nav>
-
 			<ul class="menu">
-
 				<li  style="display:inline-block;"><a href="{% url 'blog:main' %}">Home</a></li>
-
-				<li  style="display:inline-block;"><a href="{% url 'blog:QnA' %}">About</a></li>
-				<li  style="display:inline-block;"><a href="#">Q&A</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:about' %}">About</a></li>
+				<li  style="display:inline-block;"><a href="{% url 'blog:QnA' %}">Q&A</a></li>
 				<li  style="display:inline-block;"><a href="{% url 'blog:mypage' %}">User</a></li>
-
 				<li  style="display:inline-block;"><a href="{% url 'blog:logout' %}">Logout</a></li>
-
 			</ul>
-
 		</nav>
-
 	</div>
 <!--UI Object -->
 <div class="faq">

@@ -359,5 +359,6 @@ def mychallenge_view(request):
 def giveup(request):
     return render(request, 'blog/목표 그만두기.html')
 
+
 def about(request):
     return render(request, 'blog/about.html')
