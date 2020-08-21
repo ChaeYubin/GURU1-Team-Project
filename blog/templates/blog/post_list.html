@@ -33,7 +33,11 @@
 				<li  style="display:inline-block;"><a href="{% url 'blog:about' %}">About</a></li>
 				<li  style="display:inline-block;"><a href="{% url 'blog:QnA' %}">Q&A</a></li>
 				<li  style="display:inline-block;"><a href="{% url 'blog:mypage' %}">User</a></li>
+                {% if request.user.is_authenticated %}
 				<li  style="display:inline-block;"><a href="{% url 'blog:logout' %}">Logout</a></li>
+                {% else %}
+                <li  style="display:inline-block;"><a href="{% url 'blog:login' %}">Login</a></li>
+                {% endif %}
 			</ul>
 		</nav>
 	</div>
