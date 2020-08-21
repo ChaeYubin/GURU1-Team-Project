@@ -46,5 +46,5 @@ urlpatterns = [
     path('mypage', views.mypage, name='mypage'),
     path('mychallenge', views.mychallenge_view, name='mychallenge'),
     path('giveup', views.giveup, name='giveup'),
-    path('AboutUs', views.aboutus, name='AboutUs'),
+    path('about', views.about, name='about')
 ]

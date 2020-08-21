@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>{{ blog_post.title }}</title>
-	<style>
-    	body{background-color: #F7F8FA}
-    	a{text-decoration: none; color:#000000;}
+    <meta charset="UTF-8">
+    <title>Post - {{ object.title }}</title>
+    <style>
+	body{background-color: #F7F8FA}
+	a{text-decoration: none; color:#000000;}
 	*{margin: 0; padding: 0;}
 	li{font-size: 15pt;}
 	.group{padding-top:100px; padding-left:20%; width:55%; position:active;}
@@ -15,7 +15,7 @@
 	header{height:80px; background color:#eee; border: 1px; position: fixed; width: 100%; }
 	.menu li{color: black; padding:5px 60px 0px 0px;}
 	ul{text-align: center; list-style: none;}
-        .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:15%; right:10%; border-radius:10px;}
+    .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:15%; right:10%; border-radius:10px;}
     </style>
 </head>
 <body>
@@ -34,85 +34,83 @@
 </header>
 
 <div class="group">
-	<h1 >{{ object.title }}</h1>
+	<h1>{{ object.title }}</h1>
 	<div class="content">
 		<br>
-		<button type="button" class="btn btn-sm btn-outline-secondary float-right" onclick="location.href='{{ object.get_update_url }}'">수정</button>{% load crispy_forms_tags %}
+		<button type="button" onclick="location.href='{{ object.get_update_url }}'">수정</button>{% load crispy_forms_tags %}
 		<br><br>
-		{{ object.content }}
-		{% if object.category %}
-		<span class="badge badge-primary float-right">{{ object.category }}</span>
-		{% else %}
-		<span class="badge badge-primary float-right">미분류</span>
-		{% endif %}
+	    {{ object.content }}
+	    {% if object.category %}
+	    <span>{{ object.category }}</span>
+	    {% else %}
+	    <span>미분류</span>
+	    {% endif %}
 
-		{{ object.content }}
 		{% for tag in object.tags.all %}
 		<a href="{{ tag.get_absolute_url }}">#{{tag}}</a>
 		{% endfor %}
 	</div>
 
 	<!-- Comments Form -->
-	<div  class="card my-4" >
+	<div>
 		<br>
-		<h5 class="card-header">Leave a Comment:</h5>
-		<div class="card-body">
-			<form method="post" action="{{ object.get_absolute_url }}new_comment/">{% csrf_token %}
-				<div class="form-group">
-					{{ comment_form | crispy }}
-				</div>
-				<br>
-				<button type="submit" class="btn btn-primary" onclick="location.href='{{ object.get_update_url }}'">Submit</button>
-			</form>
-		</div>
+	    <h5>Leave a Comment:</h5>
+	    <div>
+	        <form method="post" action="{{ object.get_absolute_url }}new_comment/">{% csrf_token %}
+	            <div class="form-group">
+	                {{ comment_form | crispy }}
+	            </div>
+	            <br>
+	            <button type="submit" onclick="location.href='{{ object.get_update_url }}'">Submit</button>
+	        </form>
+	    </div>
 	</div>
 
 	<!-- Single Comment -->
 	<div  id="comment-list">
 		<br>
-		{% for comment in object.comment_set.all %}
-		<div class="media mb-4" id="comment-id-{{ comment.pk }}">
-			<div class="media-body">
-				{% if comment.author == request.user %}
-				<button onclick="location.href='/blog/delete_comment/{{ comment.pk }}/'">delete</button>
-				<button onclick="location.href='/blog/edit_comment/{{ comment.pk }}/'">edit</button>
-				{% endif %}
-				<h5 class="mt-0">{{ comment.author }} <small class="text-muted">{{ comment.created_at }}</small></h5>
-				{{ comment.get_markdown_content | safe }}
-			</div>
-		</div>
-		<br>{% endfor %}
-
+	    {% for comment in object.comment_set.all %}
+	    <div id="comment-id-{{ comment.pk }}">
+	        <div>
+	            {% if comment.author == request.user %}
+	            <button onclick="location.href='/blog/delete_comment/{{ comment.pk }}/'">delete</button>
+	            <button onclick="location.href='/blog/edit_comment/{{ comment.pk }}/'">edit</button>
+	            {% endif %}
+	            <h5>{{ comment.author }} <small>{{ comment.created_at }}</small></h5>
+	            {{ comment.get_markdown_content | safe }}
+	        </div>
+	    </div>
+	    <br>{% endfor %}
 	</div>
 </div>
 <!-- challenge certification widget -->
-<div class="side_bar">
-	<br>
-	<h3 style="text-align: center">목표 달성률</h3>
-	<div class="card-body">
-		<br>
-		<h4 class="card-title"> 그룹 평균</h4>
-		<progress value="{{ group_rates }}" max="100"></progress>
-	</div>
-	{% for user, rate in achieve_rates.items %}
-	{% if user.id != user.is_superuser %} <!-- 관리자는 보이지 않음 -->
-	{% if request.user.id == user.id %} <!-- 현재 로그인한 유저라면 (색상 이사람만 다르게 하면 좋을듯) -->
-	<div class="card-body">
-		<br>
-		<h4 class="card-title">{{ user.get_username }}</h4>
-		<progress value="{{ rate }}" max="100"></progress>
-	</div>
-	{% else %}
-	<!-- 현재 로그인한 유저가 아니라면 -->
-	<div class="card-body">
-		<br>
-		<h4 class="card-title">{{ user.get_username }}</h4>
-		<progress value="{{ rate }}" max="100"></progress>
-	</div>
-	{% endif %}
-	{% endif %}
-	{% endfor %}
-</div>
+  <div class="side_bar">
+  	<br>
+    <h3 style="text-align: center">목표 달성률</h3>
+      <div>
+      <br>
+      <h4> 그룹 평균</h4>
+      <progress value="{{ group_rates }}" max="100"></progress>
+      </div>
+      {% for user, rate in achieve_rates.items %}
+        {% if user.id != user.is_superuser %} <!-- 관리자는 보이지 않음 -->
+          {% if request.user.id == user.id %} <!-- 현재 로그인한 유저라면 -->
+                <div>
+                <br>
+                <h4>{{ user.get_username }}</h4>
+                <progress value="{{ rate }}" max="100"></progress>
+                </div>
+          {% else %}
+            <!-- 현재 로그인한 유저가 아니라면 -->
+                <div>
+                <br>
+                <h4>{{ user.get_username }}</h4>
+                <progress value="{{ rate }}" max="100"></progress>
+                </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+  </div>
 <!-- //challenge certification widget -->
 
 </body>

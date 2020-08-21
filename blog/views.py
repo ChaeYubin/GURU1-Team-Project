@@ -342,6 +342,7 @@ class AnswerUpdate(UpdateView):
             raise PermissionError('Comment 수정 권한이 없습니다.')
         return answer
 
+
 def mypage(request):
     return render(request, "blog/회원관리페이지메뉴.html")
 
@@ -354,9 +355,9 @@ def mychallenge_view(request):
     user_rates = achieve_rates[request.user]
     return render(request, 'blog/mychallenge.html', {'achieve_rates': achieve_rates,'user_rates': user_rates})
 
+
 def giveup(request):
     return render(request, 'blog/목표 그만두기.html')
 
-def aboutus(request):
-    return render(request, ) #aboutus_page html 넣기
-
+def about(request):
+    return render(request, 'blog/about.html')
