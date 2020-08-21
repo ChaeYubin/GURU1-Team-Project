@@ -84,21 +84,21 @@
   	<br>
     <h3 style="text-align: center;">목표 달성률</h3>
     <br>
-      <div class="card-body">
-      <h4 class="card-title"> 그룹 평균</h4>
+      <div>
+      <h4> 그룹 평균</h4>
       <progress value="{{ group_rates }}" max="100"></progress>
       </div>
       {% for user, rate in achieve_rates.items %}
         {% if user.id != user.is_superuser %} <!-- 관리자는 보이지 않음 -->
           {% if request.user.id == user.id %} <!-- 현재 로그인한 유저라면 (색상 이사람만 다르게 하면 좋을듯) -->
-                <div class="card-body"><br>
-                <h4 class="card-title">{{ user.get_username }}</h4>
+                <div><br>
+                <h4 style="color:orange">{{ user.get_username }}</h4>
                 <progress value="{{ rate }}" max="100"></progress>
                 </div>
           {% else %}
             <!-- 현재 로그인한 유저가 아니라면 -->
-                <div class="card-body"><br>
-                <h4 class="card-title">{{ user.get_username }}</h4>
+                <div><br>
+                <h4>{{ user.get_username }}</h4>
                 <progress value="{{ rate }}" max="100"></progress>
                 </div>
           {% endif %}
@@ -109,24 +109,24 @@
 
 {% if is_paginated %}
 <!-- Pagination -->
-<ul class="pagination justify-content-center mb-4">
+<ul>
     {% if page_obj.has_next %}
-    <li class="page-item">
-        <a class="page-link" href="?page={{ page_obj.next_page_number }}">&larr; Older</a>
+    <li>
+        <a href="?page={{ page_obj.next_page_number }}">&larr; Older</a>
     </li>
     {% else %}
-    <li class="page-item disabled">
-        <a class="page-link" href="#">&larr; Older</a>
+    <li>
+        <a href="#">&larr; Older</a>
     </li>
     {% endif %}
 
     {% if page_obj.has_previous %}
-    <li class="page-item">
-        <a class="page-link" href="?={{ page_obj.previous_page_number">Newer &rarr;</a>
+    <li>
+        <a href="?={{ page_obj.previous_page_number">Newer &rarr;</a>
     </li>
     {% else %}
     <li class="page-item disabled">
-        <a class="page-link" href="#">Newer &rarr;</a>
+        <a href="#">Newer &rarr;</a>
     </li>
     {% endif %}
 </ul>

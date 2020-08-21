@@ -19,6 +19,7 @@
 	.comment_button{float:right; margin:2px 2px; padding:0px 2px}
 	.category{color: orange}
 	.image{margin:20px 0px}
+	.tag{margin-top:20px}
     .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:15%; right:15%; border-radius:10px;}
     </style>
 </head>
@@ -61,10 +62,9 @@
         {% endif %}
         </div>
 	    {{ object.get_markdown_content | safe }}
-		<br><br>
 
 		{% for tag in object.tags.all %}
-		<a href="{{ tag.get_absolute_url }}">#{{tag}}</a>
+		<div class="tag"><a href="{{ tag.get_absolute_url }}">#{{tag}}</a></div>
 		{% endfor %}
 	</div>
 
@@ -116,7 +116,7 @@
           {% if request.user.id == user.id %} <!-- 현재 로그인한 유저라면 -->
                 <div>
                 <br>
-                <h4>{{ user.get_username }}</h4>
+                <h4 style="color:orange">{{ user.get_username }}</h4>
                 <progress value="{{ rate }}" max="100"></progress>
                 </div>
           {% else %}
