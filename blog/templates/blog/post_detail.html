@@ -60,7 +60,7 @@
             <img src="{{ object.head_image.url }}">
         {% endif %}
         </div>
-	    {{ object.content }}
+	    {{ object.get_markdown_content | safe }}
 		<br><br>
 
 		{% for tag in object.tags.all %}

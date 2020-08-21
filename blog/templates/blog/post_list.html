@@ -62,7 +62,7 @@
         {% endif %}
         </div>
         <div class="content">
-            <h4>{{ p.content | truncatewords:50 }}</h4>
+            <h4>{{ p.get_markdown_content | truncatewords:50 | safe }}</h4>
 
             {% for tag in p.tags.all %}
             <a href="{{ tag.get_absolute_url }}">#{{ tag }}</a>
