@@ -73,13 +73,14 @@ def update_user(request):
 @login_required
 def delete_user(request):
     if request.method == 'POST':
-        password = request.POST.get('password')
-        user = request.user
-        if check_password(password, user.password):
+        # password = request.POST.get('password')
+        # user = request.user
+        # if check_password(password, user.password):
             request.user.delete()
             return redirect('blog:login')
-        else:
-            messagebox.showinfo("warning", "비밀번호가 일치하지 않습니다.")
+        # else:
+        #     messagebox.showinfo("warning", "비밀번호가 일치하지 않습니다.")
+        #     return redirect('blog:delete')
     return render(request, 'blog/탈퇴.html')
 
 
