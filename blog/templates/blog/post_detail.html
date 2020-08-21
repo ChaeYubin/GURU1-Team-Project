@@ -116,14 +116,14 @@
           {% if request.user.id == user.id %} <!-- 현재 로그인한 유저라면 -->
                 <div>
                 <br>
-                <h4 style="color:orange">{{ user.get_username }}</h4>
+                <h4 style="color:orange">{{ user.nickname }}</h4>
                 <progress value="{{ rate }}" max="100"></progress>
                 </div>
           {% else %}
             <!-- 현재 로그인한 유저가 아니라면 -->
                 <div>
                 <br>
-                <h4>{{ user.get_username }}</h4>
+                <h4>{{ user.nickname }}</h4>
                 <progress value="{{ rate }}" max="100"></progress>
                 </div>
           {% endif %}
