@@ -28,8 +28,8 @@
 		</p>
 	</fieldset>
 	<p>
-		<input type="submit" value="그만두기">
-		<input type="reset" value="취소">
+		<input type="button" value="그만두기" onclick="location.href='{% url 'blog:mypage' %}'" >
+		<input type="button" value="취소" onclick="location.href='{% url 'blog:mypage' %}'" >
 	</p>
 
 </body>

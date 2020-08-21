@@ -19,7 +19,7 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return render(request, "blog/post_list.html")
+            return render(request, "blog/login+css.html")
         else:
             messagebox.showinfo("warning", "ID 또는 비밀번호가 올바르지 않습니다.")
 

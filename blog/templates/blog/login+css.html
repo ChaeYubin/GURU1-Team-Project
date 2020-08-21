@@ -21,7 +21,7 @@
         li{font-size: 15pt;}
 
         .wrapper{width:100%; margin:0 auto; background-color: white;padding: 20px;}
-        .clearfix{content: ''; display: block; clear: both;}
+        .group{padding-top:150px; text-align:center}
 
         header{height:80px; background color:#eee; border: 1px; position: fixed; width: 100%; }
         .menu li{color: black; padding:5px 60px 0px 0px;}
@@ -40,25 +40,31 @@
 <body>
 {% if user.is_authenticated %}
 <header>
-	<div class="wrapper">
-		<nav>
-			<ul class="menu">
-				<li  style="display:inline-block;"><a href="{% url 'blog:main' %}">Home</a></li>
-				<li  style="display:inline-block;"><a href="{% url 'blog:AboutUs' %}">About</a></li>
-                		<li  style="display:inline-block;"><a href="{% url 'blog:QnA' %}">Q&A</a></li>
-				<li  style="display:inline-block;"><a href="{% url 'blog:mypage' %}">User</a></li>
-				<li  style="display:inline-block;"><a href="{% url 'blog:logout' %}">Logout</a></li>
-			</ul>
-		</nav>
-	</div>
+    <div class="wrapper">
+        <nav>
+            <ul class="menu">
+                <li  style="display:inline-block;"><a href="{% url 'blog:main' %}">Home</a></li>
+                <li  style="display:inline-block;"><a href="{% url 'blog:about' %}">About</a></li>
+                <li  style="display:inline-block;"><a href="{% url 'blog:QnA' %}">Q&A</a></li>
+                <li  style="display:inline-block;"><a href="{% url 'blog:mypage' %}">User</a></li>
+                <li  style="display:inline-block;"><a href="{% url 'blog:logout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
 </header>
+<div class="group">
+    <p>{{ user.nickname }}님 환영합니다.</p>
+    <br><br>
+    <input type="button" value="Main 바로가기" onclick="location.href='{% url 'blog:main' %}'" >
+</div>
+</div>
 {% else %}
 <header>
     <div class="wrapper">
         <nav>
             <ul class="menu">
-                <li  style="display:inline-block;"><a href="{% url 'blog:home' %}">Home</a></li>
-                <li  style="display:inline-block;"><a href="{% url 'blog:AboutUs' %}">About</a></li>
+                <li  style="display:inline-block;"><a href="{% url 'blog:main' %}">Home</a></li>
+                <li  style="display:inline-block;"><a href="{% url 'blog:about' %}">About</a></li>
                 <li  style="display:inline-block;"><a href="{% url 'blog:QnA' %}">Q&A</a></li>
                 <li  style="display:inline-block;"><a href="#">User</a></li>
                 <li  style="display:inline-block;"><a href="{% url 'blog:login' %}">Login</a></li>
@@ -98,7 +104,7 @@
                 <form method="POST" action="">
 
                     <br><br>
-                <h2><input type="button" value="회원가입" onclick="location.href='signup'" ></h2>
+                    <h2><input type="button" value="회원가입" onclick="location.href='signup'" ></h2>
 
 
                 </form>

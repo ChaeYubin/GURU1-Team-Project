@@ -39,7 +39,7 @@ urlpatterns = [
     path('QnA/<int:pk>/update/', views.QuestionUpdate.as_view()),
     path('QnA/<int:pk>/', views.QuestionDetail.as_view()),
     path('QnA/<int:pk>/new_comment/', views.answer),
-    path('main/', views.MainPage, name='main'),
+    path('', views.MainPage, name='main'),
     path('update', views.update_user, name='update'),
     path('delete', views.delete_user, name='delete'),
     path('password/', views.password, name='password'),
