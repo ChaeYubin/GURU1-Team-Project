@@ -53,7 +53,7 @@
     <div class="post_wrap">
         <h3>{{ p.title }}</h3>
 
-        <div class="post_info"><p>{{ p.created }} by {{ p.author }}</p></div>
+        <div class="post_info"><p>{{ p.created }} by {{ p.author.nickname }}</p></div>
 
         {% if p.category %}
         <span class="category">{{ p.category }}</span>
