@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title> 00그룹 </title>
+    <title>꾸준히 독서하기</title>
     <style>
     	body{background-color: #F7F8FA}
     	a{text-decoration: none; color:#000000;}
@@ -18,8 +18,10 @@
 		.post_wrap{padding:20px; border:1px solid black; width:60%}
 		.post_info{font-size:0.8em; color:gray}
 		.category{color: orange}
+		.image{margin-top:20px}
 		.read_more{color: navy}
-        .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:19%; right:10%; border-radius:10px;}
+		.content{padding-top:20px; padding-bottom:20px}
+        .side_bar {width: 200px; padding:20px; padding-top:2px; border:1px solid black; position:fixed; top:19%; right:15%; border-radius:10px;}
     </style>
 </head>
 <body>
@@ -38,7 +40,7 @@
 </header>
 
 <div class=group>
-	<h1>그룹명</h1>
+	<h1>독서 10권</h1>
 	<br>
 	    <button style="height: 30px; width:100px;" class="btn btn-sm btn-primary float-right" onclick="location.href='/blog/create/'">New Post</button>
 	    <br><br>
@@ -52,18 +54,23 @@
         {% if p.category %}
         <span class="category">{{ p.category }}</span>
         {% else %}
-        <span class="badge badge-primary float-right">미분류</span>
-        {% endif %}
-        {% if head_image %}
-            <img src="{{ p.head_image.url }}">
+        <span class="category">미분류</span>
         {% endif %}
 
-        <h4>{{ p.content | truncatewords:50 }}</h4>
+        {% if p.head_image %}
+            <div class="image">
+                <img src="{{ p.head_image.url }}">
+            </div>
+        {% endif %}
 
-        {% for tag in p.tags.all %}
-        <a href="{{ tag.get_absolute_url }}">#{{ tag }}</a>
-        {% endfor %}
-        <br>
+        <div class="content">
+            <h4>{{ p.get_markdown_content | truncatewords:50 | safe }}</h4>
+
+            {% for tag in p.tags.all %}
+            <a href="{{ tag.get_absolute_url }}">#{{ tag }}</a>
+            {% endfor %}
+        </div>
+
         <a href="{{ p.get_absolute_url }}" class="read_more">  Read More &rarr;</a>
 
     </div>

@@ -62,6 +62,9 @@ class Post(models.Model):
     def get_delete_url(self):
         return '/blog/delete_post/{}/'.format(self.pk)
 
+    def get_markdown_content(self):
+        return markdown(self.content)
+
 
 class Question(models.Model):
     objects = None

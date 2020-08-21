@@ -148,8 +148,18 @@ class PostListByTag(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(type(self), self).get_context_data(**kwargs)
+        users = User.objects.exclude(is_superuser=True)
+        achieve_rates = {}
+        group_rates = 0
+        for user in users:
+            achieve_rates[user] = Post.objects.filter(category=1, author=user).count() * 10
+            group_rates += achieve_rates[user]
+        group_rates //= len(achieve_rates)
         context['category_list'] = Category.objects.all()
         context['posts_without_category'] = Post.objects.filter(category=None).count()
+        context['users'] = users
+        context['achieve_rates'] = achieve_rates
+        context['group_rates'] = group_rates
         tag_slug = self.kwargs['slug']
         context['tag'] = Tag.objects.get(slug=tag_slug)
 
@@ -214,9 +224,19 @@ class PostListByCategory(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(type(self), self).get_context_data(**kwargs)
+        users = User.objects.exclude(is_superuser=True)
+        achieve_rates = {}
+        group_rates = 0
+        for user in users:
+            achieve_rates[user] = Post.objects.filter(category=1, author=user).count() * 10
+            group_rates += achieve_rates[user]
+        group_rates //= len(achieve_rates)
         context['category_list'] = Category.objects.all()
         context['posts_without_category'] = Post.objects.filter(category=None).count()
 
+        context['users'] = users
+        context['achieve_rates'] = achieve_rates
+        context['group_rates'] = group_rates
         slug = self.kwargs['slug']
 
         if slug == '_none':
